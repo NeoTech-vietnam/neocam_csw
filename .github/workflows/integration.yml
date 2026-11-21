@@ -1,0 +1,73 @@
+name: NeoCam integration
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Optional package to override, for example WifiStack
+        required: false
+        type: string
+      package_ref:
+        description: Branch, tag or commit of that package; supply both inputs or neither
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install host test dependencies
+        run: python -m pip install -r TOOLCONF/requirements-dev.txt
+      - name: Fetch selected package commits
+        env:
+          PACKAGE_READ_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
+          PACKAGE_NAME: ${{ inputs.package }}
+          PACKAGE_REF: ${{ inputs.package_ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          args=(fetch)
+          if [[ -n "$PACKAGE_NAME" || -n "$PACKAGE_REF" ]]; then
+            [[ -n "$PACKAGE_NAME" && -n "$PACKAGE_REF" ]] || { echo 'Supply both package and package_ref'; exit 1; }
+            args+=(--ref "$PACKAGE_NAME=$PACKAGE_REF")
+          fi
+          if [[ -n "$PACKAGE_READ_TOKEN" ]]; then
+            auth="$(printf 'x-access-token:%s' "$PACKAGE_READ_TOKEN" | base64 -w0)"
+            echo "::add-mask::$auth"
+            export GIT_CONFIG_COUNT=1
+            export GIT_CONFIG_KEY_0=http.https://github.com/.extraheader
+            export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $auth"
+          fi
+          python TOOLCONF/workspace.py "${args[@]}"
+      - name: Run host regressions
+        run: python test/run_host_tests.py
+      - name: Build ESP32-S3 firmware with ESP-IDF 6.0.1
+        run: >-
+          docker run --rm
+          -v "$GITHUB_WORKSPACE:/project" -w /project
+          espressif/idf:v6.0.1
+          idf.py -B _build/esp32s3 build
+      - name: Check firmware and memory configuration
+        run: python TOOLCONF/check_build.py _build/esp32s3
+      - name: Upload provenance, reports and firmware
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neocam-integration-${{ github.run_id }}
+          if-no-files-found: warn
+          path: |
+            _out/
+            _build/esp32s3/*.bin
+            _build/esp32s3/*.elf
+            _build/esp32s3/*.map
+            _build/esp32s3/flasher_args.json
+            _build/esp32s3/bootloader/bootloader.bin
+            _build/esp32s3/partition_table/partition-table.bin

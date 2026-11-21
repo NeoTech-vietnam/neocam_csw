@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-21",
+  "source_commit": "f6e94115c84e90af3e0e6297fb3fe900480aa4c1",
+  "source_preservation": "All recorded original file hashes match; NeoLab Git status clean.",
+  "module_repositories": 12,
+  "integration_repositories": 1,
+  "fetch_validation": "Pinned local commits, repeat fetch, branch/SHA overrides, dirty/unmanaged preservation, destination checks, archive path/link checks, CI override rejection.",
+  "live_wifi_validation": {
+    "live_link": true,
+    "external_branch": "validation/live-override",
+    "uncommitted_edits_visible": true,
+    "host_wifi_case": "passed",
+    "external_edits_preserved_on_unlink": true,
+    "integration_git_ignored": true
+  },
+  "host_tests": {
+    "passed": [
+      "boot_ctrl",
+      "nvs",
+      "camera_buffers",
+      "cam_pipe",
+      "wifi_config",
+      "wifi_manager",
+      "http_srv",
+      "application",
+      "performance",
+      "benchmark_camera",
+      "workspace"
+    ],
+    "architecture": "passed",
+    "sanitized": false
+  },
+  "firmware": {
+    "result": "passed",
+    "sdk": "6.0.1",
+    "camera": "2.1.7",
+    "jpeg": "1.3.1",
+    "target": "esp32s3",
+    "configuration_and_memory_check": "passed",
+    "binary_bytes": 935232
+  },
+  "workflow_validation": "Official actionlint v1.7.12 passed; shellcheck and pyflakes integrations disabled.",
+  "not_executed": [
+    "GitHub publication",
+    "Remote GitHub Actions run",
+    "Hardware flashing and board tests",
+    "Linux execution of directory-symlink path",
+    "Sanitizer run"
+  ],
+  "git": "Local initial commits only; no project remotes or pushes."
+}

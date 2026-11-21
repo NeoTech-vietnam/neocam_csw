@@ -1,0 +1,3 @@
+overrides:
+  WifiStack:
+    path: ../modules/WifiStack

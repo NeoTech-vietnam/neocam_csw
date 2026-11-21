@@ -1,0 +1,5 @@
+set(NEO_MODULE_SOURCES)
+set(NEO_MODULE_INCLUDES)
+include("${PROJECT_DIR}/Rte/module.cmake")
+idf_component_register(SRCS ${NEO_MODULE_SOURCES}
+    INCLUDE_DIRS ${NEO_MODULE_INCLUDES} REQUIRES BSW)
