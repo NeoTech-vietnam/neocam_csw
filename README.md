@@ -7,6 +7,21 @@ Conan server. `packages.yml` is a Git workspace manifest, not a Conan recipe.
 
 ## Fetch and build
 
+For the short command interface on fresh Ubuntu or Windows computers, see
+[local development](docs/local-development.md):
+
+```bash
+make setup
+make dev MODULE=WifiStack
+make build
+```
+
+On Windows without Make, use `.\neo.cmd setup`, `.\neo.cmd dev WifiStack` and
+`.\neo.cmd build`. Setup downloads the pinned SDK if needed; build activates it
+automatically. Once the live checkout is selected, repeat only `make build` after
+editing. `make check` runs host tests and builds. The lower-level commands below
+remain available for advanced use.
+
 Use Python 3.12 or newer, Git, and a C compiler (`cc`, or set `CC`).
 On Windows the host runner puts the chosen compiler's DLL directory first for its
 own process; this avoids conflicts between multiple installed MinGW toolchains.

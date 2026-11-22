@@ -1,0 +1,61 @@
+name: Ubuntu developer commands
+on:
+  push:
+    branches: [main]
+    paths: ['Makefile', 'neo', 'neo.cmd', 'TOOLCONF/dev.py', 'test/test_dev.py', '.github/workflows/local-dev.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: local-developer-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  fresh-ubuntu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        id: python
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.neocam/toolchains
+          key: ubuntu24-neocam-sdk-v6.0.1-python${{ steps.python.outputs.python-version }}-v1
+      - name: Fetch private packages through the developer command
+        env:
+          PACKAGE_READ_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}
+        run: |
+          set -euo pipefail
+          [[ -n "$PACKAGE_READ_TOKEN" ]] || { echo 'Missing PACKAGE_READ_TOKEN'; exit 1; }
+          auth="$(printf 'x-access-token:%s' "$PACKAGE_READ_TOKEN" | base64 -w0)"
+          echo "::add-mask::$auth"
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0=http.https://github.com/.extraheader
+          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $auth"
+          make fetch
+      - name: Bootstrap pinned SDK without manual export
+        run: make setup
+      - name: Test and build using the public developer interface
+        run: |
+          set -euo pipefail
+          make check 2>&1 | tee _out/developer-check.log
+          make build
+          make doctor
+      - name: Upload developer validation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ubuntu-developer-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            _out/developer-check.log
+            _out/host-tests.json
+            _build/esp32s3/*.bin
