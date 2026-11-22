@@ -1,0 +1,17 @@
+table.specification-fields {
+    width: 100%;
+}
+
+table.specification-fields th:first-child,
+table.specification-fields td:first-child {
+    width: 28%;
+    background-color: #eef2f6;
+}
+
+table.specification-fields td {
+    overflow-wrap: anywhere;
+}
+
+table.specification-fields code.literal {
+    white-space: normal;
+}

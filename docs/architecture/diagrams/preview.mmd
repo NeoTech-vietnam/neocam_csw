@@ -1,0 +1,33 @@
+sequenceDiagram
+    participant Browser
+    participant HTTP as HttpSrv server task
+    participant Worker as Stream worker
+    participant App as RTE/application ports
+    participant Pipe as CamPipe producer
+    participant Cam as CamIo
+    participant Native as esp32-camera
+    loop Continuous acquisition
+        Pipe->>Cam: CamIo_Capture()
+        Cam->>Cam: Reserve preview slot and camera mutex
+        Cam->>Native: esp_camera_fb_get()
+        Native-->>Cam: Native JPEG
+        Cam->>Cam: Validate dimensions/size and copy
+        Cam->>Native: esp_camera_fb_return()
+        Cam-->>Pipe: Copied frame and generation token
+        Pipe->>Pipe: Assign sequence/epoch, replace latest publication
+    end
+    Browser->>HTTP: GET /stream
+    HTTP->>HTTP: Reserve single stream, async begin
+    HTTP->>Worker: Create worker with owned request
+    HTTP-->>HTTP: Return to serve metrics/capture
+    Worker->>App: Request next frame after last sequence
+    App->>Pipe: CamPipe_AcquireLatest(after_seq, timeout, frame)
+    Pipe->>Pipe: Retain latest immutable slot
+    Pipe-->>App: Copied JPEG, sequence, epoch, timestamp, token
+    App-->>Worker: Frame descriptor
+    Worker->>Browser: MIME header + JPEG
+    Worker->>App: Update sent-frame metric, release token
+    Note over Worker: Repeat at target cadence and retry transient switching/busy states
+    Worker->>Worker: shutdown socket while async lease protects it
+    Worker->>HTTP: async handler complete exactly once
+    Worker->>Worker: Acknowledge quiescence, self-delete

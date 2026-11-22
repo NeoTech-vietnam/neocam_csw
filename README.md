@@ -14,7 +14,7 @@ ESP-IDF does not need to be installed beforehand.
 ### Ubuntu
 
 Ubuntu 24.04 is validated. On Ubuntu 22.04, install Python 3.12+ first; see the
-[local development guide](docs/local-development.md) for interpreter selection.
+[local development guide](docs/development/local-development.rst) for interpreter selection.
 
 ```bash
 git clone https://github.com/NeoTech-vietnam/neocam_csw.git
@@ -82,7 +82,7 @@ On Windows, use `.\neo.cmd port COM3`, replacing `COM3` with your board's port.
 Ubuntu users need serial-device access, normally through the `dialout` group.
 Exit the local monitor with Ctrl+]. Additional commands include `flash`,
 `monitor`, `menuconfig`, `clean` and `help`; see
-[local development](docs/local-development.md) for details.
+[local development](docs/development/local-development.rst) for details.
 
 ## Ownership
 
@@ -161,9 +161,21 @@ The Git fetch tool retries `Could not resolve proxy` once using command-scoped
 `git -c http.proxy=`. Saved Git settings remain unchanged. Authentication errors
 and missing revisions still require correcting access or the selected ref.
 
+## Documentation
+
+Browse the [documentation index](docs/index.rst) and the [12 software specifications](docs/specifications/index.rst).
+With Python 3.12 or newer, run these commands from the integration root (use `python3` on Ubuntu if needed):
+
+```text
+python -m pip install -r docs/requirements.txt
+python -m sphinx -b html -n -W --keep-going docs _build/docs/html
+```
+
+Open `_build/docs/html/index.html`. See the [documentation contribution guide](docs/development/documentation.rst) for source conventions and the GitHub Actions artifact.
+
 ## Publish and activate GitHub
 
-See [GitHub setup](docs/github-setup.md). The container directory and `modules`
+See [GitHub setup](docs/development/github-setup.rst). The container directory and `modules`
 directory are not repositories. All twelve module repositories are now published
 privately, with `origin` set in their independent local checkouts. Their existing
 histories were preserved. This project is published as
@@ -177,7 +189,7 @@ the twelve private modules. Build results and artifacts belong to this project.
 Build scripts and product configuration remain here; shared CI owns orchestration.
 
 For manual flashing of a successful main integration artifact, follow the
-[Ubuntu self-hosted runner setup](docs/self-hosted-flashing.md). **NeoCam flash**
+[Ubuntu self-hosted runner setup](docs/operations/self-hosted-flashing.rst). **NeoCam flash**
 uses the shared `flash-esp32.yml@v1.2.0` workflow and a dedicated USB board runner;
 compilation continues on GitHub-hosted Ubuntu. No additional package-read token
 is needed for artifact download. After flashing, IDF Monitor captures 30 seconds
@@ -186,7 +198,7 @@ lets you change the duration and console baud rate, or set duration `0` to skip.
 
 WifiStack development pushes can also trigger a reference build on
 `feat/wifistack`, selected in its module-owned `ci_targets.yml`. See
-[module integration setup](docs/module-integration.md). The dedicated receiver
+[module integration setup](docs/development/module-integration.rst). The dedicated receiver
 tests the exact pushed module SHA and rejects main/default branch targets.
 
 ## Provenance and validation
@@ -194,11 +206,11 @@ tests the exact pushed module SHA and rejects main/default branch targets.
 Fresh Ubuntu SDK setup, `make check` and an incremental `make build` passed in
 the [Ubuntu developer command validation](https://github.com/NeoTech-vietnam/neocam_csw/actions/runs/45009301980).
 Windows launcher, live module selection, tests and firmware builds were also
-verified. This validation did not flash hardware. See [runtime.md](docs/runtime.md)
+verified. This validation did not flash hardware. See the [runtime reference](docs/operations/runtime.rst)
 for board behavior and endpoints.
 
 `_metadata/source-mapping.json` records the original NeoLab commit, source hashes
-and ownership mapping. [migration.md](docs/migration.md) explains the differences
+and ownership mapping. The [migration guide](docs/architecture/migration.rst) explains the differences
 from EA211. [_metadata/validation.json](_metadata/validation.json) records the
 original migration validation. Current hosted CI runs and their artifacts provide
 the evidence for the published integration baseline; physical board checks remain

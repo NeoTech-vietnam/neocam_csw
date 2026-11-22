@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant Main
+    participant Boot as BootCtrl
+    participant Core as NVS/pool/camera
+    participant App as RTE/application
+    participant Net as Wi-Fi/producer/HTTP
+    Main->>Boot: NeoCam_Start()
+    Boot->>Core: Initialize in configured order
+    Boot->>App: Connect ports, initialize diagnostics
+    Boot->>Net: Initialize AP, wait AP_START, start producer, start HTTP
+    alt any step fails
+        Boot->>Boot: Preserve primary error and failed stage
+        Boot->>Net: Reverse cleanup of attempted/acquired steps
+        Boot->>App: Disconnect only after users quiesce
+        Boot->>Core: Release lower resources last
+    end
+    Boot-->>Main: Result and retained cleanup status

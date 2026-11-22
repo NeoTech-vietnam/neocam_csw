@@ -1,22 +1,24 @@
-# GitHub CI setup
+GitHub CI setup
+===============
 
-The twelve source modules are private repositories in `NeoTech-vietnam`, selected
+The twelve source modules are private repositories in ``NeoTech-vietnam``, selected
 by Conan-style Git tags in packages.yml. Product configuration and local build
-commands belong to `neocam_csw`. Versioned reusable orchestration belongs to
-`ci-workflows`. Both repositories are private.
+commands belong to ``neocam_csw``. Versioned reusable orchestration belongs to
+``ci-workflows``. Both repositories are private.
 
 - Product: https://github.com/NeoTech-vietnam/neocam_csw
 - Shared CI: https://github.com/NeoTech-vietnam/ci-workflows
-- Product workflow: `.github/workflows/integration.yml`
-- Shared workflow: `.github/workflows/esp-idf.yml@v1.0.0`
+- Product workflow: ``.github/workflows/integration.yml``
+- Shared workflow: ``.github/workflows/esp-idf.yml@v1.0.0``
 
 The caller handles push/main, pull requests and workflow_dispatch. Manual inputs
-`package` and `package_ref` override one module for that run; they do not change
+``package`` and ``package_ref`` override one module for that run; they do not change
 the committed integration baseline. The reusable workflow uses Ubuntu 24.04,
-Python 3.12 and the official `espressif/idf:v6.0.1` Docker image for ESP32-S3.
+Python 3.12 and the official ``espressif/idf:v6.0.1`` Docker image for ESP32-S3.
 No physical runner registration or board is needed for compilation.
 
-## Required read-only module credential
+Required read-only module credential
+------------------------------------
 
 GitHub's automatic GITHUB_TOKEN is limited to the caller repository. Reading the
 twelve private source repositories requires a separate credential.
@@ -37,18 +39,19 @@ twelve private source repositories requires a separate credential.
 
 Alternatively, set the secret from your own terminal using the hidden prompt:
 
-```powershell
-gh secret set PACKAGE_READ_TOKEN --repo NeoTech-vietnam/neocam_csw
-```
+.. code:: powershell
+
+   gh secret set PACKAGE_READ_TOKEN --repo NeoTech-vietnam/neocam_csw
 
 GitHub Free private repositories do not receive organization-level secrets, so
 use a repository secret for this setup. A read-only GitHub App installation token
 can replace the personal token later without changing the package model.
 
-## Run and inspect the product build
+Run and inspect the product build
+---------------------------------
 
 Open neocam_csw → Actions → NeoCam integration → Run workflow. Leave both inputs
-empty for the committed baseline. For a module experiment, supply e.g. `WifiStack`
+empty for the committed baseline. For a module experiment, supply e.g. ``WifiStack``
 and a pushed branch/tag/SHA. Download the artifact for firmware binaries, ELF/map,
 flash arguments, resolved module commit SHAs and validation logs.
 
@@ -56,7 +59,8 @@ A missing credential fails early with an explicit message, before downloading
 private modules. Infrastructure smoke results in ci-workflows compile the SDK's
 stock hello_world example; they do not count as a NeoCam product validation.
 
-## Shared workflow access and releases
+Shared workflow access and releases
+-----------------------------------
 
 ci-workflows → Settings → Actions → General → Access must permit callers from
 NeoTech-vietnam. This private-workflow download permission is separate from the
@@ -64,19 +68,21 @@ module credential above. Select a published CI tag in the project caller and kee
 published tags unchanged; future updates get a new version and an explicit caller
 upgrade. Shared workflow checkout uses the calling project, not the CI repository.
 
-## Automatic integration tests from a module repository
+Automatic integration tests from a module repository
+----------------------------------------------------
 
-WifiStack's `ci_targets.yml` selects `neocam_csw/feat/wifistack`. Development pushes
+WifiStack's ``ci_targets.yml`` selects ``neocam_csw/feat/wifistack``. Development pushes
 call the dedicated module-integration receiver with the exact pushed module SHA;
 both sides reject main/default integration branches. See
-[module CI setup and credential instructions](module-integration.md). The module
-needs a separate `INTEGRATION_DISPATCH_TOKEN` secret; the package-read token stays
+:doc:`module CI setup and credential instructions </development/module-integration>`. The module
+needs a separate ``INTEGRATION_DISPATCH_TOKEN`` secret; the package-read token stays
 here. The module check waits for the actual reference-build result.
 
 For the separate manual artifact-to-hardware workflow, see
-[Ubuntu self-hosted flashing](self-hosted-flashing.md).
+:doc:`Ubuntu self-hosted flashing </operations/self-hosted-flashing>`.
 
 References:
+
 - https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows
 - https://docs.github.com/en/actions/how-tos/reuse-automations/share-with-your-organization
 - https://docs.github.com/en/actions/concepts/security/github_token

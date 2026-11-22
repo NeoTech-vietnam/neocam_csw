@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant Browser
+    participant Image as HttpSrv image worker
+    participant Sup as CamSupv / RTE
+    participant Pipe as CamPipe producer
+    participant Cam as CamIo / esp32-camera
+    Browser->>Image: GET /photo
+    Image->>Sup: Photo application callback
+    Sup->>Pipe: CamPipe_Photo(frame)
+    Pipe->>Pipe: Drop latest publication, drain preview consumer references
+    Pipe->>Cam: Set PHOTO profile, discard settling frames
+    Pipe->>Cam: Capture into dedicated photo slot
+    Pipe->>Cam: Restore previous preview profile, discard settling frames
+    Pipe-->>Sup: Photo lease after successful restoration
+    Sup-->>Image: JPEG descriptor
+    Image->>Browser: Send JPEG under image deadline
+    Image->>Sup: Release photo token exactly once

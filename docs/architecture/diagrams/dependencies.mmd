@@ -1,0 +1,13 @@
+flowchart TD
+    Main[main + STConf composition] --> Boot[BootCtrl]
+    Main --> Wiring[Static application/provider ports]
+    HTTP[BSW HttpSrv] -->|configured callbacks| RTE[Rte]
+    RTE -->|application ports| HMI[CamHmi]
+    HMI -->|device, supervisor and diagnostic ports through RTE| App[CamDev / CamSupv / CamDiag]
+    App -->|camera services through RTE| Pipe[BSW CamPipe]
+    Pipe --> Camera[BSW CamIo]
+    Pipe --> Pool
+    Camera --> Pool[BSW MediaBuf]
+    Camera --> Native[esp32-camera / SCCB / DVP]
+    HTTP --> IDF[ESP-IDF HTTP + FreeRTOS worker]
+    Wifi[WifiMgr] --> WiFiIf[WifiIf / ESP-IDF Wi-Fi]
