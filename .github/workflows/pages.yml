@@ -6,6 +6,7 @@ on:
     paths:
       - 'docs/**'
       - 'packages.yml'
+      - '.github/workflows/integration.yml'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
