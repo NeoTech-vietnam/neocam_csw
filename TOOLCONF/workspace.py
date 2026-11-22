@@ -27,9 +27,20 @@ class WorkspaceError(RuntimeError):
 def git(directory, *arguments, binary=False):
     command = ['git', '-C', str(directory), *arguments]
     result = subprocess.run(command, capture_output=True, text=not binary)
+    retried_direct = False
+    diagnostic = result.stderr or ''
+    if isinstance(diagnostic, bytes):
+        diagnostic = diagnostic.decode('utf-8', errors='replace')
+    if result.returncode and arguments[0] == 'fetch' and 'could not resolve proxy' in diagnostic.lower():
+        print('workspace: configured Git proxy could not be resolved; retrying this fetch with http.proxy=.',
+              file=sys.stderr)
+        result = subprocess.run(['git', '-c', 'http.proxy=', *command[1:]],
+                                capture_output=True, text=not binary)
+        retried_direct = True
     if result.returncode:
         # Repository URLs can contain credentials; do not echo the command or stderr.
-        raise WorkspaceError(f'Git {arguments[0]} failed; check repository access and revision.')
+        retry = ' after retrying without proxy' if retried_direct else ''
+        raise WorkspaceError(f'Git {arguments[0]} failed{retry}; check repository access and revision.')
     return result.stdout if binary else result.stdout.strip()
 
 

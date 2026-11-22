@@ -1,49 +1,49 @@
 packages:
   BootCtrl:
-    repo: ../modules/BootCtrl
-    ref: e5f17adbe77c41d6d17f8635706679d39162a507
+    repo: https://github.com/NeoTech-vietnam/BootCtrl.git
+    ref: bootctrl/1.0.0@neotech/prototype
     dest: BootCtrl
   BswLib:
-    repo: ../modules/BswLib
-    ref: bff049eb1af832e63b4f1f7f7cf182f3b4943cbc
+    repo: https://github.com/NeoTech-vietnam/BswLib.git
+    ref: bswlib/1.0.0@neotech/prototype
     dest: BswLib
   CamApp:
-    repo: ../modules/CamApp
-    ref: 9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883
+    repo: https://github.com/NeoTech-vietnam/CamApp.git
+    ref: camapp/1.0.0@neotech/prototype
     dest: CamApp
   CamIo:
-    repo: ../modules/CamIo
-    ref: 8d62a4fec49fbb1132e1ce085a205f6534307658
+    repo: https://github.com/NeoTech-vietnam/CamIo.git
+    ref: camio/1.0.0@neotech/prototype
     dest: CamIo
   CamPipe:
-    repo: ../modules/CamPipe
-    ref: 17346bb3ebf390bbd8481c2935d1336cc9e582cb
+    repo: https://github.com/NeoTech-vietnam/CamPipe.git
+    ref: campipe/1.0.0@neotech/prototype
     dest: CamPipe
   CUCEL:
-    repo: ../modules/CUCEL
-    ref: 0b078d5690d33d3980f363b12fa1d9011bb105a3
+    repo: https://github.com/NeoTech-vietnam/CUCEL.git
+    ref: cucel/1.0.0@neotech/prototype
     dest: CUCEL
   EbOs:
-    repo: ../modules/EbOs
-    ref: 2380cea17d6c9fd013b214a2625d555f6aa97c0c
+    repo: https://github.com/NeoTech-vietnam/EbOs.git
+    ref: ebos/1.0.0@neotech/prototype
     dest: EbOs
   HttpSrv:
-    repo: ../modules/HttpSrv
-    ref: 5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144
+    repo: https://github.com/NeoTech-vietnam/HttpSrv.git
+    ref: httpsrv/1.0.0@neotech/prototype
     dest: HttpSrv
   LocalTime:
-    repo: ../modules/LocalTime
-    ref: 3439e60e19a3e3c02d47d861454ef61b8633c422
+    repo: https://github.com/NeoTech-vietnam/LocalTime.git
+    ref: localtime/1.0.0@neotech/prototype
     dest: LocalTime
   NeoContracts:
-    repo: ../modules/NeoContracts
-    ref: 79de8ffd201dbb3a8f2295b8545e96e85deaa7d2
+    repo: https://github.com/NeoTech-vietnam/NeoContracts.git
+    ref: neocontracts/1.0.0@neotech/prototype
     dest: NeoContracts
   Rte:
-    repo: ../modules/Rte
-    ref: f535640c1cf1e598fd610c8068a54c25cd2b42c6
+    repo: https://github.com/NeoTech-vietnam/Rte.git
+    ref: rte/1.0.0@neotech/prototype
     dest: Rte
   WifiStack:
-    repo: ../modules/WifiStack
-    ref: 6174f10643a8e3a75e2019d4ab10abbf82b9d164
+    repo: https://github.com/NeoTech-vietnam/WifiStack.git
+    ref: wifistack/1.0.0@neotech/prototype
     dest: WifiStack

@@ -18,10 +18,20 @@ python TOOLCONF/workspace.py status
 python test/run_host_tests.py
 ```
 
-Initially the manifest points to the sibling `../modules/<name>` local Git
-repositories, pinned to their initial commits. Run these commands from this
-directory. A fetch exports committed files, including module-owned source lists
-and tests, without embedding Git histories in this repository.
+The manifest selects private repositories in the
+[NeoTech-vietnam organization](https://github.com/NeoTech-vietnam), using tags such
+as `bootctrl/1.0.0@neotech/prototype`. Authenticate Git with an account that can
+read those repositories. Run these commands from this directory. A fetch exports
+committed files, including module-owned source lists and tests, without embedding
+Git histories here. The original local bootstrap selections remain in Git history.
+
+Published tags are stable version selections: keep them unchanged, and create a
+new version for changed code. Exact resolved commit SHAs are recorded under `_out`.
+
+If a fetch fails specifically with `Could not resolve proxy`, the tool retries
+that fetch once using `git -c http.proxy=` and prints a notice. This bypasses the
+configured Git proxy for that command only; no saved Git settings are changed.
+Other errors, including authentication failures and missing refs, are not retried.
 
 In an exported **ESP-IDF 6.0.1** terminal:
 
@@ -90,17 +100,23 @@ without a trailing slash, so both snapshot directories and live links are ignore
 ## Publish and activate GitHub
 
 See [GitHub setup](docs/github-setup.md). The container directory and `modules`
-directory are not repositories; publish each child repository separately, plus
-this integration repository. Preserve the initial local Git history when pushing.
-No remotes, remote repositories, tokens or pushes are created by the migration.
+directory are not repositories. All twelve module repositories are now published
+privately, with `origin` set in their independent local checkouts. Their existing
+histories were preserved. This project is published as
+[`NeoTech-vietnam/neocam_csw`](https://github.com/NeoTech-vietnam/neocam_csw).
 
-The workflow template is intentionally dispatch-only. It cannot run remotely
-with the bootstrap's sibling local repository paths. Replace every `repo` with
-the corresponding private GitHub HTTPS URL after publishing the modules.
+The small `.github/workflows/integration.yml` caller handles pushes to main, pull
+requests and manual dispatch. It uses the versioned ESP-IDF workflow in
+[`NeoTech-vietnam/ci-workflows`](https://github.com/NeoTech-vietnam/ci-workflows).
+Configure repository secret `PACKAGE_READ_TOKEN` with Contents: read access to
+the twelve private modules. Build results and artifacts belong to this project.
+Build scripts and product configuration remain here; shared CI owns orchestration.
 
 ## Provenance and validation
 
 `_metadata/source-mapping.json` records the original NeoLab commit, source hashes
 and ownership mapping. [migration.md](docs/migration.md) explains the differences
-from EA211. [_metadata/validation.json](_metadata/validation.json) records what was
-actually verified here, including SDK or hardware checks not performed.
+from EA211. [_metadata/validation.json](_metadata/validation.json) records the
+original migration validation. Current hosted CI runs and their artifacts provide
+the evidence for the published integration baseline; physical board checks remain
+separate from compilation and host regressions.

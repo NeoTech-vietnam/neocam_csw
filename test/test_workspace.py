@@ -1,5 +1,6 @@
 """Real local-Git tests of selection, data preservation and live override behavior."""
 import importlib.util
+from contextlib import redirect_stderr
 import io
 import json
 import os
@@ -151,6 +152,41 @@ class WorkspaceTests(unittest.TestCase):
         self.assertEqual((self.root / 'NewWifi/wifi.c').read_text(), 'initial\n')
         report = json.loads((self.root / '_out/packages-resolved.json').read_text())
         self.assertEqual(report['packages']['WifiStack']['commit'], self.sha)
+
+
+class GitProxyRetryTests(unittest.TestCase):
+    def test_proxy_dns_failure_retries_fetch_once_without_proxy(self):
+        failed = subprocess.CompletedProcess([], 128, '', 'fatal: Could not resolve proxy: invalid.example')
+        success = subprocess.CompletedProcess([], 0, 'fetched\n', '')
+        output = io.StringIO()
+        arguments = ('fetch', '--no-tags', '--', 'https://github.com/NeoTech-vietnam/WifiStack.git', 'tag')
+        with patch.object(workspace.subprocess, 'run', side_effect=[failed, success]) as run, redirect_stderr(output):
+            self.assertEqual(workspace.git(Path('cache'), *arguments), 'fetched')
+        self.assertEqual(run.call_count, 2)
+        self.assertEqual(run.call_args_list[0].args[0], ['git', '-C', 'cache', *arguments])
+        self.assertEqual(run.call_args_list[1].args[0], ['git', '-c', 'http.proxy=', '-C', 'cache', *arguments])
+        self.assertIn('proxy', output.getvalue().lower())
+
+    def test_other_errors_and_non_fetch_commands_are_not_retried(self):
+        for command, message in [('fetch', 'Authentication failed'),
+                                 ('fetch', "couldn't find remote ref tag"),
+                                 ('rev-parse', 'Could not resolve proxy')]:
+            with self.subTest(command=command, message=message):
+                result = subprocess.CompletedProcess([], 128, '', message)
+                with patch.object(workspace.subprocess, 'run', return_value=result) as run:
+                    with self.assertRaises(workspace.WorkspaceError):
+                        workspace.git(Path('cache'), command)
+                self.assertEqual(run.call_count, 1)
+
+    def test_failed_direct_retry_stops_and_does_not_expose_credentials(self):
+        failures = [subprocess.CompletedProcess([], 128, '', 'Could not resolve proxy: secret-value'),
+                    subprocess.CompletedProcess([], 128, '', 'https://user:secret-value@example.invalid failed')]
+        output = io.StringIO()
+        with patch.object(workspace.subprocess, 'run', side_effect=failures) as run, redirect_stderr(output):
+            with self.assertRaises(workspace.WorkspaceError) as caught:
+                workspace.git(Path('cache'), 'fetch')
+        self.assertEqual(run.call_count, 2)
+        self.assertNotIn('secret-value', str(caught.exception) + output.getvalue())
 
 
 if __name__ == '__main__':
