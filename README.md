@@ -112,6 +112,12 @@ Configure repository secret `PACKAGE_READ_TOKEN` with Contents: read access to
 the twelve private modules. Build results and artifacts belong to this project.
 Build scripts and product configuration remain here; shared CI owns orchestration.
 
+For manual flashing of a successful main integration artifact, follow the
+[Ubuntu self-hosted runner setup](docs/self-hosted-flashing.md). **NeoCam flash**
+uses the shared `flash-esp32.yml@v1.1.0` workflow and a dedicated USB board runner;
+compilation continues on GitHub-hosted Ubuntu. No additional package-read token
+is needed for artifact download.
+
 ## Provenance and validation
 
 `_metadata/source-mapping.json` records the original NeoLab commit, source hashes

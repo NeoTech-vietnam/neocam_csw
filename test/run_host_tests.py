@@ -127,7 +127,7 @@ def main():
         print(f"PASS {name}", flush=True)
         completed.append(name)
     if not args.case:
-        for name in ("performance", "benchmark_camera", "workspace"):
+        for name in ("performance", "benchmark_camera", "workspace", "hardware_flash"):
             subprocess.run([sys.executable, str(ROOT / f"test/test_{name}.py")], check=True)
             print(f"PASS {name} tooling", flush=True)
             completed.append(name)

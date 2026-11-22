@@ -1,0 +1,26 @@
+name: NeoCam flash
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful main NeoCam integration run ID (empty = latest successful)
+        required: false
+        type: string
+      baud:
+        description: Serial flashing baud rate
+        type: choice
+        default: '460800'
+        options: ['115200', '460800', '921600']
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  flash:
+    uses: NeoTech-vietnam/ci-workflows/.github/workflows/flash-esp32.yml@v1.1.0
+    with:
+      source-run-id: ${{ inputs.source_run_id }}
+      serial-port: ${{ vars.NEOCAM_SERIAL_PORT }}
+      baud: ${{ inputs.baud }}
