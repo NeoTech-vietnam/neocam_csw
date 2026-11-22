@@ -9,12 +9,12 @@ Ubuntu machine. It does not fetch modules or compile firmware again.
 neocam_csw: NeoCam integration (GitHub-hosted Ubuntu + ESP-IDF container)
     -> successful main run -> firmware-esp32s3-<run_id> artifact
     -> NeoCam flash: select build (GitHub-hosted Ubuntu)
-    -> NeoCam flash: download / flash / verify (your Ubuntu + USB ESP32-S3)
-    -> hardware-flash-<run_id>-<attempt> report artifact
+    -> NeoCam flash: download / flash / verify / timed monitor (your Ubuntu + USB ESP32-S3)
+    -> hardware-flash-<run_id>-<attempt> report and serial-log artifact
 ```
 
 The product caller is `.github/workflows/flash.yml`. Its shared orchestration is
-`NeoTech-vietnam/ci-workflows/.github/workflows/flash-esp32.yml@v1.1.0`.
+`NeoTech-vietnam/ci-workflows/.github/workflows/flash-esp32.yml@v1.2.0`.
 Product checks and the esptool command live in `TOOLCONF/hardware_flash.py`.
 The automatic `GITHUB_TOKEN` has `contents: read` and `actions: read` in this
 repository. There is no additional PAT or `PACKAGE_READ_TOKEN` needed to flash.
@@ -76,11 +76,14 @@ home; the workflow looks for this exact location:
 
 ```bash
 python3 -m venv "$HOME/.venvs/neocam-flash"
-"$HOME/.venvs/neocam-flash/bin/python" -m pip install 'esptool==5.6.0'
+"$HOME/.venvs/neocam-flash/bin/python" -m pip install 'esptool==5.6.0' 'esp-idf-monitor==1.11.0'
 "$HOME/.venvs/neocam-flash/bin/python" -m esptool version
 ```
 
-The version check does not write to the board. The workflow requires esptool 5.6.0.
+The version check does not write to the board. The workflow installs the pinned
+esptool 5.6.0 and IDF Monitor 1.11.0 from `TOOLCONF/requirements-flash.txt` before
+flashing. An existing configured runner needs no manual environment update; its
+next job installs the added monitor package automatically.
 
 ## 3. Download and register the Actions runner
 
@@ -184,19 +187,36 @@ is eligible; consult its resolved module SHAs when choosing your firmware.
 3. Choose **Run workflow** and select branch **main**.
 4. Set **source_run_id** to the successful integration run ID, or leave it empty.
 5. Leave **baud** at `460800` initially. Use `115200` if the serial link is unreliable.
-6. Click **Run workflow**. This starts the hardware write without further prompts.
+6. Leave **monitor_seconds** at `30` for a short capture, choose up to `300`, or
+   select `0` to skip monitoring. Leave **monitor_baud** at `115200`, which matches
+   the firmware console. Flashing baud and monitor baud are separate settings.
+7. Click **Run workflow**. This starts the hardware write without further prompts.
 
 The hosted `select` job verifies the source. The self-hosted `flash` job downloads
 the frozen artifact, checks its binaries, calls esptool to write/verify them, and
-resets the board. Jobs for this board are serialized; starting another run does
+resets the board. The **Monitor ESP32-S3 serial output** step then opens the same
+port with Espressif's IDF Monitor, resets once to capture a fresh boot, and streams
+timestamped serial output into the Actions log for the chosen duration. It exits
+normally after that capture, releasing the serial port. Jobs for this board are
+serialized across both flashing and monitoring; starting another run does
 not cancel an active flash. GitHub concurrency may replace an older pending job
 when several dispatches are queued, so dispatch one board run at a time.
 
 The workflow writes the generated bootloader at `0x0`, partition table at
 `0x8000`, and application at `0x10000`. It does not perform a whole-chip erase;
 ordinary flashing keeps existing NVS data outside the written regions. Successful
-write/verification does not by itself prove camera/Wi-Fi behavior. No blocking
-serial monitor or automatic hardware acceptance test is included in this step.
+write/verification does not by itself prove camera/Wi-Fi behavior. The timed serial
+capture provides logs for inspection; it does not fail on application panic text
+or assert camera/Wi-Fi health. Monitor connection/process failures still fail the
+step. A watchdog allows 30 extra seconds for connection/shutdown and reports a
+failure if the process does not finish. With native USB, logs are exposed through
+the firmware's enabled secondary USB Serial/JTAG console.
+
+This is a CI capture session. The Actions page displays output; interactive
+keyboard shortcuts and commands are available when you run `idf.py monitor`
+locally. Address, panic and core-dump decoding are disabled in this standalone
+capture, so the Ubuntu flashing runner needs no cross-toolchain. Raw diagnostic
+output remains in the log.
 
 ## 8. Inspect the result or diagnose a failure
 
@@ -204,7 +224,11 @@ The selection job summary links the chosen build and its exact project commit.
 The flash run uploads `hardware-flash-<flash-run-id>-<attempt>` containing the
 esptool log and JSON provenance: source run/commit, port, baud and binary SHA-256
 hashes. `flashed-and-verified` means esptool completed successfully. Keep these
-reports separate from camera/runtime acceptance evidence.
+reports separate from camera/runtime acceptance evidence. When monitoring is
+enabled, the same artifact also includes **`serial-monitor.log`**. You can watch
+that output live by expanding **Monitor ESP32-S3 serial output** in the run, or
+download the artifact after it finishes. The log is retained even if monitoring
+fails after producing partial output. With duration `0`, no serial log is created.
 
 | Symptom | Check |
 | --- | --- |
@@ -217,6 +241,8 @@ reports separate from camera/runtime acceptance evidence.
 | Wrong chip | Connect the configured ESP32-S3 board; do not bypass chip checks |
 | Missing/expired artifact | Rebuild NeoCam integration on main, then select the new successful run |
 | Serial transfer errors | Try baud `115200` and a better USB data cable |
+| Unreadable monitor text | Set **monitor_baud** to the firmware console rate, currently `115200` |
+| Monitor watchdog timeout | Check USB reconnect/port identity; the timed capture should exit normally without timing out |
 
 An offline matching runner can leave a job queued for up to 24 hours. Cancelling
 a queued job is safe; avoid interrupting an active flash or removing board power.
@@ -238,6 +264,21 @@ Omitting `--execute` validates the artifact, prints the command and writes a
 dry-run report without opening a serial port. Firmware is treated as data;
 the runner uses checked-out main tools, never scripts from the artifact.
 
+After installing the pinned flashing requirements, IDF Monitor's headless mode
+can also be checked without a board using pyserial's in-memory loopback port:
+
+```bash
+printf 'send NeoCam monitor smoke\nsleep 0.5\n' | \
+  "$HOME/.venvs/neocam-flash/bin/python" -u -m esp_idf_monitor \
+    --port loop:// --baud 115200 --target esp32s3 --timestamps \
+    --disable-auto-color --disable-address-decoding \
+    --decode-coredumps disable --decode-panic disable
+```
+
+Expected: a timestamped `NeoCam monitor smoke` line and exit code 0 after the
+short capture. Without an ELF argument, this smoke check prints a harmless
+missing-ELF warning. CI supplies the selected artifact's ELF file.
+
 ## References and SPI example mapping
 
 - The [SPI validation Makefile](https://github.com/NeoTech-vietnam/NeoExamples-ESP32-FreeRTOS/blob/feature/spi/03_Interfaces-and-Protocols/01_Basic/03_SPI/00_validate_project/Makefile)
@@ -246,6 +287,7 @@ the runner uses checked-out main tools, never scripts from the artifact.
   binaries instead of rebuilding with `idf.py flash`. SPI LCD wiring is unrelated
   to NeoCam's camera target and is not copied.
 - [Espressif: flash prebuilt firmware](https://docs.espressif.com/projects/esptool/en/latest/esp32s3/esptool/flashing-firmware.html).
+- [Espressif: IDF Monitor command-stream mode](https://github.com/espressif/esp-idf-monitor/tree/v1.11.0#command-stream-mode).
 - [Espressif: serial access and boot mode](https://docs.espressif.com/projects/esp-idf/en/v6.0.1/esp32s3/get-started/establish-serial-connection.html).
 - [GitHub: add a self-hosted runner](https://docs.github.com/en/actions/how-tos/manage-runners/self-hosted-runners/add-runners).
 - [GitHub: run the runner as a service](https://docs.github.com/en/actions/how-tos/manage-runners/self-hosted-runners/configure-the-application).

@@ -12,6 +12,16 @@ on:
         type: choice
         default: '460800'
         options: ['115200', '460800', '921600']
+      monitor_seconds:
+        description: Monitor after flashing for this many seconds (0 = skip)
+        type: choice
+        default: '30'
+        options: ['0', '15', '30', '60', '120', '300']
+      monitor_baud:
+        description: Serial monitor baud rate (firmware console defaults to 115200)
+        type: choice
+        default: '115200'
+        options: ['115200', '230400', '460800', '921600']
 
 permissions:
   contents: read
@@ -19,8 +29,10 @@ permissions:
 
 jobs:
   flash:
-    uses: NeoTech-vietnam/ci-workflows/.github/workflows/flash-esp32.yml@v1.1.0
+    uses: NeoTech-vietnam/ci-workflows/.github/workflows/flash-esp32.yml@v1.2.0
     with:
       source-run-id: ${{ inputs.source_run_id }}
       serial-port: ${{ vars.NEOCAM_SERIAL_PORT }}
       baud: ${{ inputs.baud }}
+      monitor-seconds: ${{ inputs.monitor_seconds }}
+      monitor-baud: ${{ inputs.monitor_baud }}

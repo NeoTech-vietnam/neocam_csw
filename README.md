@@ -114,9 +114,11 @@ Build scripts and product configuration remain here; shared CI owns orchestratio
 
 For manual flashing of a successful main integration artifact, follow the
 [Ubuntu self-hosted runner setup](docs/self-hosted-flashing.md). **NeoCam flash**
-uses the shared `flash-esp32.yml@v1.1.0` workflow and a dedicated USB board runner;
+uses the shared `flash-esp32.yml@v1.2.0` workflow and a dedicated USB board runner;
 compilation continues on GitHub-hosted Ubuntu. No additional package-read token
-is needed for artifact download.
+is needed for artifact download. After flashing, IDF Monitor captures 30 seconds
+of serial output by default and uploads `serial-monitor.log`. The dispatch form
+lets you change the duration and console baud rate, or set duration `0` to skip.
 
 ## Provenance and validation
 
