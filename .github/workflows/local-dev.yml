@@ -26,8 +26,8 @@ jobs:
           python-version: '3.12'
       - uses: actions/cache@v4
         with:
-          path: ~/.neocam/toolchains
-          key: ubuntu24-neocam-sdk-v6.0.1-python${{ steps.python.outputs.python-version }}-v1
+          path: ~/.neotech/toolchains
+          key: ubuntu24-neotech-sdk-v6.0.1-python${{ steps.python.outputs.python-version }}-v1
       - name: Fetch private packages through the developer command
         env:
           PACKAGE_READ_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}

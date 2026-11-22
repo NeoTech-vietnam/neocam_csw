@@ -3,6 +3,7 @@ import importlib.util
 import os
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -36,6 +37,61 @@ class DeveloperCommandsTests(unittest.TestCase):
         self.assertEqual(linux["PATH"], "/tools:old")
         self.assertEqual(linux["SDK"], "$(do-not-run)")
         self.assertEqual(original, {"PATH": "old", "KEEP": "value"})
+
+    def test_shared_cache_is_default_for_new_installations(self):
+        home = self.root.parent / "home"
+        candidates, install = dev.toolchain_locations({}, {}, home)
+        self.assertEqual(install[0], home / ".neotech/toolchains/esp-idf-v6.0.1")
+        self.assertEqual(install[1], home / ".neotech/toolchains/tools-v6.0.1")
+        self.assertEqual(candidates[0], install)
+
+    def test_existing_neocam_cache_remains_a_reuse_candidate(self):
+        home = self.root.parent / "home"
+        old = (home / ".neocam/toolchains/esp-idf-v6.0.1", home / ".neocam/toolchains/tools-v6.0.1")
+        candidates, install = dev.toolchain_locations({"sdk": str(old[0]), "tools": str(old[1])}, {}, home)
+        self.assertIn(old, candidates)
+        self.assertNotEqual(install, old)
+        self.assertFalse(install[0].exists())
+        self.assertFalse(old[0].exists())  # Discovery does not create/move directories.
+
+    def test_explicit_shared_override_wins_over_saved_install_and_legacy_override(self):
+        chosen = self.root.parent / "shared-tools"
+        candidates, install = dev.toolchain_locations(
+            {"sdk": "/previous-sdk", "tools": "/previous-tools"},
+            {"NEOTECH_TOOLCHAIN_DIR": str(chosen), "NEOCAM_TOOLCHAIN_DIR": "/old-override"})
+        self.assertEqual(candidates, [install])
+        self.assertEqual(install[0], chosen / "esp-idf-v6.0.1")
+
+    def test_legacy_override_still_works(self):
+        chosen = self.root.parent / "old-custom-tools"
+        candidates, install = dev.toolchain_locations({}, {"NEOCAM_TOOLCHAIN_DIR": str(chosen)})
+        self.assertEqual(candidates, [install])
+        self.assertEqual(install[1], chosen / "tools-v6.0.1")
+
+    def test_ready_legacy_sdk_is_reused_without_download_or_relocation(self):
+        home = self.root.parent / "home"
+        sdk = home / ".neocam/toolchains/esp-idf-v6.0.1"
+        tools = home / ".neocam/toolchains/tools-v6.0.1"
+        (sdk / "tools").mkdir(parents=True)
+        (sdk / "tools/idf_tools.py").touch()
+        (sdk / ".git").mkdir()
+        marker = sdk / ".git/neocam-submodules-ready"
+        marker.touch()
+        python_env = tools / "python_env/existing"
+        python = dev.python_in(python_env)
+        python.parent.mkdir(parents=True)
+        python.touch()
+        exported = SimpleNamespace(returncode=0, stdout=f"IDF_PYTHON_ENV_PATH={python_env}\n")
+        with patch.object(dev.Path, "home", return_value=home), patch.dict(os.environ, {}, clear=True), \
+                patch.object(dev, "git", return_value="v6.0.1") as git, \
+                patch.object(dev.subprocess, "run", return_value=exported), patch.object(dev, "run") as install:
+            selected_python, environment = dev.sdk_environment()
+        self.assertEqual(selected_python, python)
+        self.assertEqual(environment["IDF_PATH"], str(sdk))
+        install.assert_not_called()
+        self.assertEqual(git.call_count, 1)  # Version check only; no clone/submodule changes.
+        self.assertTrue(marker.exists())
+        self.assertFalse((home / ".neotech").exists())
 
     def test_pip_isolation_preserves_parent_and_network_environment(self):
         original = {"PIP_INDEX_URL": "old-mirror", "PIP_EXTRA_INDEX_URL": "extra", "HTTPS_PROXY": "proxy"}

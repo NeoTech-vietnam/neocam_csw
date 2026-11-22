@@ -124,8 +124,16 @@ switches branches, discards changes, publishes releases or pushes Git commits.
 - `.workspace/developer.json` remembers SDK paths, board port and selection mode.
 - `packages.local.yml` contains live module mappings; `packages.yml` stays the
   committed baseline. `ci_targets.yml` in each module still controls GitHub CI.
-- Fresh SDKs/tools are cached under `~/.neocam/toolchains`. Advanced users can
-  set `NEOCAM_TOOLCHAIN_DIR` before setup to use another cache directory.
+- Fresh SDKs/tools are cached under `~/.neotech/toolchains`, shared across projects
+  by SDK version. Advanced users can set `NEOTECH_TOOLCHAIN_DIR` before setup to
+  select another cache directory; an explicit override takes precedence over
+  saved project settings. The old `NEOCAM_TOOLCHAIN_DIR` variable is accepted as
+  a compatibility alias when the new variable is unset.
+- Existing installations under `~/.neocam/toolchains`, saved SDK paths or the
+  workspace's `../.toolchain` remain reusable. They are not moved or deleted:
+  Python virtual environments can contain absolute installation paths. Fresh
+  installs use the neutral cache; finding an old valid install avoids downloading
+  another SDK solely for a directory-name change.
 - Existing `IDF_PATH`/`IDF_TOOLS_PATH` or workspace toolchains are reused only
   when the source tag matches v6.0.1. Shell environment changes affect child
   commands only; no persistent system PATH, Git configuration or pip settings

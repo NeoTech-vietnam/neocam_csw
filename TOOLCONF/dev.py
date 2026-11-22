@@ -121,16 +121,28 @@ def apply_exports(text, environment):
     return result
 
 
+def toolchain_locations(data, environment, home=None):
+    """Prefer the shared cache; retain old installs without moving Python venvs."""
+    home = home or Path.home()
+    override = environment.get("NEOTECH_TOOLCHAIN_DIR") or environment.get("NEOCAM_TOOLCHAIN_DIR")
+    cache = Path(override or home / ".neotech/toolchains").expanduser().resolve()
+    install = (cache / f"esp-idf-{SDK_VERSION}", cache / f"tools-{SDK_VERSION}")
+    legacy = home / ".neocam/toolchains"
+    candidates = [install]
+    if not override:
+        if data.get("sdk") and data.get("tools"):
+            candidates.append((Path(data["sdk"]), Path(data["tools"])))
+        if environment.get("IDF_PATH"):
+            candidates.append((Path(environment["IDF_PATH"]),
+                               Path(environment.get("IDF_TOOLS_PATH", str(home / ".espressif")))))
+        candidates += [(ROOT.parent / ".toolchain/esp-idf", ROOT.parent / ".toolchain/tools"),
+                       (legacy / f"esp-idf-{SDK_VERSION}", legacy / f"tools-{SDK_VERSION}")]
+    return candidates, install
+
+
 def sdk_environment():
     data = state()
-    cache = Path(os.environ.get("NEOCAM_TOOLCHAIN_DIR", str(Path.home() / ".neocam/toolchains"))).expanduser().resolve()
-    candidates = []
-    if data.get("sdk"):
-        candidates.append((Path(data["sdk"]), Path(data["tools"])))
-    if os.environ.get("IDF_PATH"):
-        candidates.append((Path(os.environ["IDF_PATH"]), Path(os.environ.get("IDF_TOOLS_PATH", str(Path.home() / ".espressif")))))
-    candidates += [(ROOT.parent / ".toolchain/esp-idf", ROOT.parent / ".toolchain/tools"),
-                   (cache / f"esp-idf-{SDK_VERSION}", cache / f"tools-{SDK_VERSION}")]
+    candidates, install = toolchain_locations(data, os.environ)
     selected = None
     for sdk, tools in candidates:
         if (sdk / "tools/idf_tools.py").exists():
@@ -141,7 +153,7 @@ def sdk_environment():
             except RuntimeError:
                 continue
     if selected is None:
-        sdk, tools = candidates[-1]
+        sdk, tools = install
         require(not sdk.exists(), f"SDK cache is incomplete or has another version: {sdk}. Inspect it before retrying")
         sdk.parent.mkdir(parents=True, exist_ok=True)
         print(f"Downloading ESP-IDF {SDK_VERSION} and submodules (first setup only)...", flush=True)
@@ -149,9 +161,10 @@ def sdk_environment():
             "--jobs", "8", SDK_REPO, sdk)
         selected = (sdk.resolve(), tools.resolve())
     sdk, tools = selected
-    if sdk == candidates[-1][0].resolve():
-        marker = sdk / ".git/neocam-submodules-ready"
-        if not marker.exists():
+    managed = {install[0].resolve(), (Path.home() / f".neocam/toolchains/esp-idf-{SDK_VERSION}").resolve()}
+    if sdk in managed:
+        marker = sdk / ".git/neotech-submodules-ready"
+        if not marker.exists() and not (sdk / ".git/neocam-submodules-ready").exists():
             git("-C", sdk, "submodule", "update", "--init", "--recursive", "--depth", "1", "--jobs", "8")
             marker.touch()
     environment = public_pip_environment(dict(os.environ, IDF_PATH=str(sdk), IDF_TOOLS_PATH=str(tools), IDF_TARGET=TARGET))

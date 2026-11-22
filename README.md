@@ -49,6 +49,10 @@ automatically. Builds activate the SDK and check the generated firmware. Camera
 2.1.7 and JPEG 1.3.1 remain pinned. Firmware is written to
 `_build/esp32s3/neocam_csw.bin`. No manual SDK activation is needed.
 
+New SDK installations use the shared, versioned `~/.neotech/toolchains` cache.
+Existing `.neocam` or workspace SDK installations remain reusable. Each project
+keeps its own Python tools in `.workspace/dev-venv` and its own build output.
+
 ## Daily commands
 
 After editing source or configuration, repeat **`make build`** on Ubuntu or
