@@ -64,14 +64,17 @@ module credential above. Select a published CI tag in the project caller and kee
 published tags unchanged; future updates get a new version and an explicit caller
 upgrade. Shared workflow checkout uses the calling project, not the CI repository.
 
-## Later: automatic integration tests from a module repository
+## Automatic integration tests from a module repository
 
-After module CI succeeds, its workflow can call the integration workflow-dispatch
-API using a credential with Actions: write on neocam_csw. Pass the module's tested
-full commit SHA as package_ref and its manifest key as package. This runs a test;
-it does not promote the module into the committed baseline. Automatic cross-repo
-triggers remain a future setup step. For the manual artifact-to-hardware workflow,
-see [Ubuntu self-hosted flashing](self-hosted-flashing.md).
+WifiStack's `ci_targets.yml` selects `neocam_csw/feat/wifistack`. Development pushes
+call the dedicated module-integration receiver with the exact pushed module SHA;
+both sides reject main/default integration branches. See
+[module CI setup and credential instructions](module-integration.md). The module
+needs a separate `INTEGRATION_DISPATCH_TOKEN` secret; the package-read token stays
+here. The module check waits for the actual reference-build result.
+
+For the separate manual artifact-to-hardware workflow, see
+[Ubuntu self-hosted flashing](self-hosted-flashing.md).
 
 References:
 - https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows

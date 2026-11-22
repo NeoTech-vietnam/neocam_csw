@@ -1,0 +1,34 @@
+name: NeoCam module integration
+run-name: Module ${{ inputs.package }} @ ${{ inputs.package_ref }} on ${{ github.ref_name }}
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Package key from packages.yml
+        required: true
+        type: string
+      package_ref:
+        description: Exact pushed module commit SHA
+        required: true
+        type: string
+      source_repository:
+        description: Pushing module repository, for example NeoTech-vietnam/WifiStack
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: module-integration-${{ github.ref }}-${{ inputs.package }}
+  cancel-in-progress: true
+jobs:
+  integration:
+    uses: NeoTech-vietnam/ci-workflows/.github/workflows/esp-idf.yml@v1.3.0
+    with:
+      idf-version: v6.0.1
+      target: esp32s3
+      package: ${{ inputs.package }}
+      package-ref: ${{ inputs.package_ref }}
+      module-mode: true
+      source-repository: ${{ inputs.source_repository }}
+    secrets:
+      PACKAGE_READ_TOKEN: ${{ secrets.PACKAGE_READ_TOKEN }}

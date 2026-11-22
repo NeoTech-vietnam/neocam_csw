@@ -120,6 +120,11 @@ is needed for artifact download. After flashing, IDF Monitor captures 30 seconds
 of serial output by default and uploads `serial-monitor.log`. The dispatch form
 lets you change the duration and console baud rate, or set duration `0` to skip.
 
+WifiStack development pushes can also trigger a reference build on
+`feat/wifistack`, selected in its module-owned `ci_targets.yml`. See
+[module integration setup](docs/module-integration.md). The dedicated receiver
+tests the exact pushed module SHA and rejects main/default branch targets.
+
 ## Provenance and validation
 
 `_metadata/source-mapping.json` records the original NeoLab commit, source hashes
