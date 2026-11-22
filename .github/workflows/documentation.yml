@@ -3,7 +3,12 @@ name: NeoCam documentation
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: ['**']
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - 'packages.yml'
+      - '.github/workflows/documentation.yml'
   workflow_dispatch:
 
 permissions:
