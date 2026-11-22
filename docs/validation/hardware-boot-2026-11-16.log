@@ -113,7 +113,7 @@ I (1672) wifi_init: WiFi RX IRAM OP enabled
 I (1672) phy_init: phy_version 711,97bcf0a2,Aug 25 2025,19:04:10
 cam_hal: NO-SOI - JPEG start marker missing
 cam_hal: NO-SOI - JPEG start marker missing
-I (1732) wifi:mode : softAP (14:c1:9f:c5:02:1d)
+I (1732) wifi:mode : softAP ([device address redacted])
 I (1732) wifi:Total power save buffer number: 16
 I (1732) wifi:Init max length of beacon: 752/752
 I (1732) wifi:Init max length of beacon: 752/752

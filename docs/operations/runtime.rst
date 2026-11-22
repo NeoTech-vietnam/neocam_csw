@@ -6,7 +6,7 @@ the original demo behavior and historical hardware evidence.
 
 ESP-IDF **6.0.1**, XIAO ESP32-S3 Sense / OV3660, JPEG preview and full-resolution
 photos over a local SoftAP.
-The demo is organized as ApplicationLayer â†’ hand-written RTE â†’ BSW. Camera,
+The demo is organized as ApplicationLayer → hand-written RTE → BSW. Camera,
 Wi-Fi, HTTP and FreeRTOS types stay behind BSW interfaces. This is the documented
 AUTOSAR R24-11 adaptation profile in :doc:`/architecture/architecture`, not
 a complete AUTOSAR implementation.
@@ -76,8 +76,7 @@ are rejected. NVS initialization errors are logged without erasing the partition
 Use
 ---
 
-Connect to **XIAO-Camera**, password **xiao-camera**, accept the no-Internet warning,
-and open http://192.168.4.1/. No router is required for this demo.
+Join the camera's configured access point and open http://192.168.4.1/. Your device may report that the network has no internet access.
 
 +-----------------------+----------------------------------------------+
 | Endpoint              | Response                                     |
@@ -87,7 +86,7 @@ and open http://192.168.4.1/. No router is required for this demo.
 +-----------------------+----------------------------------------------+
 | ``/capture``          | Latest preview JPEG at the selected profile  |
 +-----------------------+----------------------------------------------+
-| ``/photo``            | 2048Ã—1536 JPEG; pauses preview and restores |
+| ``/photo``            | 2048×1536 JPEG; pauses preview and restores  |
 |                       | its profile before a successful JPEG         |
 |                       | response                                     |
 +-----------------------+----------------------------------------------+
@@ -112,8 +111,8 @@ workers, leaving the server available for controls and metrics. Only one image
 request (``/capture`` or ``/photo``) is admitted at a time. Oversized JPEGs fail rather
 than being truncated; slow clients cannot build a frame queue.
 
-Boot selects **safe** (640Ã—480, JPEG quality 12). Other presets are **smooth**
-(640Ã—480/q16), **balanced** (1280Ã—720/q12), and **detail** (1600Ã—1200/q10).
+Boot selects **safe** (640×480, JPEG quality 12). Other presets are **smooth**
+(640×480/q16), **balanced** (1280×720/q12), and **detail** (1600×1200/q10).
 Their FPS values are targets; all presets remain ``performance_validated:false``.
 Lower JPEG quality numbers request better quality and usually larger files.
 No automatic quality adjustment occurs. See :doc:`/validation/optimization`

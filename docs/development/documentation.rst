@@ -12,7 +12,10 @@ module repos. A virtual environment keeps the documentation dependency separate.
    python -m sphinx -b html -n -W --keep-going docs _build/docs/html
 
 Open ``_build/docs/html/index.html`` in a browser. The **NeoCam documentation**
-Actions workflow runs the same build and attaches the HTML as ``neocam-docs-html``.
+Actions workflow attaches the HTML as ``neocam-docs-html``. The **Deploy documentation**
+workflow publishes the integration guides and package catalog on GitHub Pages.
+Update a package's own ``docs/specification.rst`` when its interfaces change.
+Update the integration baseline when ``packages.yml`` selects a new release.
 
 Write pages in reStructuredText and add each new page to its branch's
 ``toctree``. Use ``:doc:`` for links to pages, ``:ref:`` for stable labels, and

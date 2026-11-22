@@ -1,10 +1,10 @@
 GitHub CI setup
 ===============
 
-The twelve source modules are private repositories in ``NeoTech-vietnam``, selected
+The twelve source modules are public repositories in ``NeoTech-vietnam``, selected
 by Conan-style Git tags in packages.yml. Product configuration and local build
 commands belong to ``neocam_csw``. Versioned reusable orchestration belongs to
-``ci-workflows``. Both repositories are private.
+``ci-workflows``. Both repositories are public.
 
 - Product: https://github.com/NeoTech-vietnam/neocam_csw
 - Shared CI: https://github.com/NeoTech-vietnam/ci-workflows
@@ -20,8 +20,8 @@ No physical runner registration or board is needed for compilation.
 Required read-only module credential
 ------------------------------------
 
-GitHub's automatic GITHUB_TOKEN is limited to the caller repository. Reading the
-twelve private source repositories requires a separate credential.
+The integration workflow currently uses the separate ``PACKAGE_READ_TOKEN``
+credential to fetch the twelve source repositories.
 
 1. Create a fine-grained personal access token in your GitHub account settings.
 2. Set resource owner to **NeoTech-vietnam**. Choose **Only select repositories**
@@ -43,8 +43,7 @@ Alternatively, set the secret from your own terminal using the hidden prompt:
 
    gh secret set PACKAGE_READ_TOKEN --repo NeoTech-vietnam/neocam_csw
 
-GitHub Free private repositories do not receive organization-level secrets, so
-use a repository secret for this setup. A read-only GitHub App installation token
+Use a repository secret for this setup. A read-only GitHub App installation token
 can replace the personal token later without changing the package model.
 
 Run and inspect the product build
@@ -56,15 +55,14 @@ and a pushed branch/tag/SHA. Download the artifact for firmware binaries, ELF/ma
 flash arguments, resolved module commit SHAs and validation logs.
 
 A missing credential fails early with an explicit message, before downloading
-private modules. Infrastructure smoke results in ci-workflows compile the SDK's
+the module repositories. Infrastructure smoke results in ci-workflows compile the SDK's
 stock hello_world example; they do not count as a NeoCam product validation.
 
 Shared workflow access and releases
 -----------------------------------
 
-ci-workflows → Settings → Actions → General → Access must permit callers from
-NeoTech-vietnam. This private-workflow download permission is separate from the
-module credential above. Select a published CI tag in the project caller and keep
+The project calls versioned workflows from the public ci-workflows repository.
+Select a published CI tag in the project caller and keep
 published tags unchanged; future updates get a new version and an explicit caller
 upgrade. Shared workflow checkout uses the calling project, not the CI repository.
 

@@ -18,7 +18,7 @@ Specification of CamPipe
    * - Selected ref
      - ``campipe/1.0.0@neotech/prototype``
    * - Source commit
-     - `f0fb17c375ce171536473147a76a9999643df4a3 <https://github.com/NeoTech-vietnam/CamPipe/tree/f0fb17c375ce171536473147a76a9999643df4a3>`__
+     - `17346bb3ebf390bbd8481c2935d1336cc9e582cb <https://github.com/NeoTech-vietnam/CamPipe/tree/17346bb3ebf390bbd8481c2935d1336cc9e582cb>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -93,7 +93,7 @@ CamPipe owns preview publication, profile transitions and still-photo capture se
 
 **Source files**
 
-`CamPipe.h <https://github.com/NeoTech-vietnam/CamPipe/blob/f0fb17c375ce171536473147a76a9999643df4a3/CamPipe.h>`__, `CamPipe.c <https://github.com/NeoTech-vietnam/CamPipe/blob/f0fb17c375ce171536473147a76a9999643df4a3/CamPipe.c>`__, `CamPipe_Backend.h <https://github.com/NeoTech-vietnam/CamPipe/blob/f0fb17c375ce171536473147a76a9999643df4a3/CamPipe_Backend.h>`__, `CamPipe_EspIdf.c <https://github.com/NeoTech-vietnam/CamPipe/blob/f0fb17c375ce171536473147a76a9999643df4a3/CamPipe_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/CamPipe/blob/f0fb17c375ce171536473147a76a9999643df4a3/module.cmake>`__.
+`CamPipe.h <https://github.com/NeoTech-vietnam/CamPipe/blob/17346bb3ebf390bbd8481c2935d1336cc9e582cb/CamPipe.h>`__, `CamPipe.c <https://github.com/NeoTech-vietnam/CamPipe/blob/17346bb3ebf390bbd8481c2935d1336cc9e582cb/CamPipe.c>`__, `CamPipe_Backend.h <https://github.com/NeoTech-vietnam/CamPipe/blob/17346bb3ebf390bbd8481c2935d1336cc9e582cb/CamPipe_Backend.h>`__, `CamPipe_EspIdf.c <https://github.com/NeoTech-vietnam/CamPipe/blob/17346bb3ebf390bbd8481c2935d1336cc9e582cb/CamPipe_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/CamPipe/blob/17346bb3ebf390bbd8481c2935d1336cc9e582cb/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------
@@ -116,7 +116,7 @@ CamPipe owns preview publication, profile transitions and still-photo capture se
    * - ``NEOCAM-SWS-CamPipe-003``
      - Preserve resources while a shutdown is incomplete.
      - :ref:`Producer shutdown <sws-campipe-stop>`
-     - `CamPipe.c <https://github.com/NeoTech-vietnam/CamPipe/blob/f0fb17c375ce171536473147a76a9999643df4a3/CamPipe.c>`__, `CamPipe_EspIdf.c <https://github.com/NeoTech-vietnam/CamPipe/blob/f0fb17c375ce171536473147a76a9999643df4a3/CamPipe_EspIdf.c>`__ and ``cam_pipe`` host case.
+     - `CamPipe.c <https://github.com/NeoTech-vietnam/CamPipe/blob/17346bb3ebf390bbd8481c2935d1336cc9e582cb/CamPipe.c>`__, `CamPipe_EspIdf.c <https://github.com/NeoTech-vietnam/CamPipe/blob/17346bb3ebf390bbd8481c2935d1336cc9e582cb/CamPipe_EspIdf.c>`__ and ``cam_pipe`` host case.
 
 7 Functional specification
 --------------------------

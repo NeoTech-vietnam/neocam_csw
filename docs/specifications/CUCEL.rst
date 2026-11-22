@@ -18,7 +18,7 @@ Specification of CUCEL
    * - Selected ref
      - ``cucel/1.0.0@neotech/prototype``
    * - Source commit
-     - `4fdf73f84e656369b7a5ac5c77a4fa46c558a58c <https://github.com/NeoTech-vietnam/CUCEL/tree/4fdf73f84e656369b7a5ac5c77a4fa46c558a58c>`__
+     - `0b078d5690d33d3980f363b12fa1d9011bb105a3 <https://github.com/NeoTech-vietnam/CUCEL/tree/0b078d5690d33d3980f363b12fa1d9011bb105a3>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -86,7 +86,7 @@ CUCEL supplies the platform and standard headers shared by NeoCam and the prepro
 
 **Source files**
 
-`Platform/Platform_Types.h <https://github.com/NeoTech-vietnam/CUCEL/blob/4fdf73f84e656369b7a5ac5c77a4fa46c558a58c/Platform/Platform_Types.h>`__, `Standard/Std_Types.h <https://github.com/NeoTech-vietnam/CUCEL/blob/4fdf73f84e656369b7a5ac5c77a4fa46c558a58c/Standard/Std_Types.h>`__, `MemMap/MemMap.h <https://github.com/NeoTech-vietnam/CUCEL/blob/4fdf73f84e656369b7a5ac5c77a4fa46c558a58c/MemMap/MemMap.h>`__, `module.cmake <https://github.com/NeoTech-vietnam/CUCEL/blob/4fdf73f84e656369b7a5ac5c77a4fa46c558a58c/module.cmake>`__.
+`Platform/Platform_Types.h <https://github.com/NeoTech-vietnam/CUCEL/blob/0b078d5690d33d3980f363b12fa1d9011bb105a3/Platform/Platform_Types.h>`__, `Standard/Std_Types.h <https://github.com/NeoTech-vietnam/CUCEL/blob/0b078d5690d33d3980f363b12fa1d9011bb105a3/Standard/Std_Types.h>`__, `MemMap/MemMap.h <https://github.com/NeoTech-vietnam/CUCEL/blob/0b078d5690d33d3980f363b12fa1d9011bb105a3/MemMap/MemMap.h>`__, `module.cmake <https://github.com/NeoTech-vietnam/CUCEL/blob/0b078d5690d33d3980f363b12fa1d9011bb105a3/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------

@@ -18,7 +18,7 @@ Specification of WifiStack
    * - Selected ref
      - ``wifistack/1.0.0@neotech/prototype``
    * - Source commit
-     - `447f7b7f2d4243ec4d9f7a6344849ea4a16b2106 <https://github.com/NeoTech-vietnam/WifiStack/tree/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106>`__
+     - `364dfb24fdf8b44d763ac7142f0235d4f5919d39 <https://github.com/NeoTech-vietnam/WifiStack/tree/364dfb24fdf8b44d763ac7142f0235d4f5919d39>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -89,7 +89,7 @@ WifiStack provides a local Wi-Fi access point. WifiMgr validates product setting
 
 **Source files**
 
-`WifiMgr/WifiMgr.h <https://github.com/NeoTech-vietnam/WifiStack/blob/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106/WifiMgr/WifiMgr.h>`__, `WifiMgr/WifiMgr_ConfigTypes.h <https://github.com/NeoTech-vietnam/WifiStack/blob/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106/WifiMgr/WifiMgr_ConfigTypes.h>`__, `WifiMgr/WifiMgr_Config.c <https://github.com/NeoTech-vietnam/WifiStack/blob/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106/WifiMgr/WifiMgr_Config.c>`__, `WifiMgr/WifiMgr.c <https://github.com/NeoTech-vietnam/WifiStack/blob/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106/WifiMgr/WifiMgr.c>`__, `WifiIf/WifiIf.h <https://github.com/NeoTech-vietnam/WifiStack/blob/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106/WifiIf/WifiIf.h>`__, `WifiIf/WifiIf_EspIdf.c <https://github.com/NeoTech-vietnam/WifiStack/blob/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106/WifiIf/WifiIf_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/WifiStack/blob/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106/module.cmake>`__.
+`WifiMgr/WifiMgr.h <https://github.com/NeoTech-vietnam/WifiStack/blob/364dfb24fdf8b44d763ac7142f0235d4f5919d39/WifiMgr/WifiMgr.h>`__, `WifiMgr/WifiMgr_ConfigTypes.h <https://github.com/NeoTech-vietnam/WifiStack/blob/364dfb24fdf8b44d763ac7142f0235d4f5919d39/WifiMgr/WifiMgr_ConfigTypes.h>`__, `WifiMgr/WifiMgr_Config.c <https://github.com/NeoTech-vietnam/WifiStack/blob/364dfb24fdf8b44d763ac7142f0235d4f5919d39/WifiMgr/WifiMgr_Config.c>`__, `WifiMgr/WifiMgr.c <https://github.com/NeoTech-vietnam/WifiStack/blob/364dfb24fdf8b44d763ac7142f0235d4f5919d39/WifiMgr/WifiMgr.c>`__, `WifiIf/WifiIf.h <https://github.com/NeoTech-vietnam/WifiStack/blob/364dfb24fdf8b44d763ac7142f0235d4f5919d39/WifiIf/WifiIf.h>`__, `WifiIf/WifiIf_EspIdf.c <https://github.com/NeoTech-vietnam/WifiStack/blob/364dfb24fdf8b44d763ac7142f0235d4f5919d39/WifiIf/WifiIf_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/WifiStack/blob/364dfb24fdf8b44d763ac7142f0235d4f5919d39/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------
@@ -104,11 +104,11 @@ WifiStack provides a local Wi-Fi access point. WifiMgr validates product setting
    * - ``NEOCAM-SWS-WifiStack-001``
      - Validate configuration and wait for event-driven AP state.
      - :ref:`WifiMgr validation and readiness <sws-wifistack-manager>`
-     - `test/test_wifi_config.c <https://github.com/NeoTech-vietnam/WifiStack/blob/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106/test/test_wifi_config.c>`__, `test/test_wifi_manager.c <https://github.com/NeoTech-vietnam/WifiStack/blob/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106/test/test_wifi_manager.c>`__
+     - `test/test_wifi_config.c <https://github.com/NeoTech-vietnam/WifiStack/blob/364dfb24fdf8b44d763ac7142f0235d4f5919d39/test/test_wifi_config.c>`__, `test/test_wifi_manager.c <https://github.com/NeoTech-vietnam/WifiStack/blob/364dfb24fdf8b44d763ac7142f0235d4f5919d39/test/test_wifi_manager.c>`__
    * - ``NEOCAM-SWS-WifiStack-002``
      - Manage AP resources and publish Wi-Fi event readiness.
      - :ref:`WifiIf ownership and events <sws-wifistack-adapter>`
-     - `WifiIf/WifiIf_EspIdf.c <https://github.com/NeoTech-vietnam/WifiStack/blob/447f7b7f2d4243ec4d9f7a6344849ea4a16b2106/WifiIf/WifiIf_EspIdf.c>`__. Host tests use a fake WifiIf.
+     - `WifiIf/WifiIf_EspIdf.c <https://github.com/NeoTech-vietnam/WifiStack/blob/364dfb24fdf8b44d763ac7142f0235d4f5919d39/WifiIf/WifiIf_EspIdf.c>`__. Host tests use a fake WifiIf.
 
 7 Functional specification
 --------------------------
@@ -494,7 +494,7 @@ WifiIf interfaces
    * - Type
      - ``WifiMgr_ConfigType``
    * - Default
-     - Demo SSID and passphrase from the :doc:`runtime guide <../operations/runtime>`, channel 1, client limit 2 and bandwidth 20 MHz.
+     - Product-configured SSID and passphrase, channel 1, client limit 2 and bandwidth 20 MHz.
    * - Units or allowed values
      - SSID 1–32 bytes, passphrase 8–63 bytes or empty for open AP, channel 1–11, 1–10 clients, 20 or 40 MHz.
    * - Effective

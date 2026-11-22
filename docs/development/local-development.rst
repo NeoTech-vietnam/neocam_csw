@@ -18,8 +18,7 @@ Start with Git and Python 3.12+ available (Ubuntu 24.04 supplies Python). If nee
    sudo apt update
    sudo apt install -y git python3 make
 
-Authenticate Git with an account that can read the private NeoTech repositories,
-clone neocam_csw and enter its directory. Then:
+Clone the public neocam_csw repository and enter its directory. Then:
 
 .. code:: bash
 

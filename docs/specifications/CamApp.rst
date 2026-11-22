@@ -18,7 +18,7 @@ Specification of CamApp
    * - Selected ref
      - ``camapp/1.0.0@neotech/prototype``
    * - Source commit
-     - `74ea4c09a6dd6a70146ea806e0a41822430f1f6c <https://github.com/NeoTech-vietnam/CamApp/tree/74ea4c09a6dd6a70146ea806e0a41822430f1f6c>`__
+     - `9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883 <https://github.com/NeoTech-vietnam/CamApp/tree/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -88,7 +88,7 @@ CamApp implements the camera dashboard, photo/profile supervision, diagnostic me
 
 **Source files**
 
-`ASW/CamHmi/CamHmi.h <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/ASW/CamHmi/CamHmi.h>`__, `ASW/CamHmi/CamHmi.c <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/ASW/CamHmi/CamHmi.c>`__, `ASW/CamDiag/CamDiag.h <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/ASW/CamDiag/CamDiag.h>`__, `ASW/CamDiag/CamDiag.c <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/ASW/CamDiag/CamDiag.c>`__, `ASV/CamSupv/CamSupv.h <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/ASV/CamSupv/CamSupv.h>`__, `ASV/CamSupv/CamSupv.c <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/ASV/CamSupv/CamSupv.c>`__, `DE/CamDev/CamDev.h <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/DE/CamDev/CamDev.h>`__, `DE/CamDev/CamDev.c <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/DE/CamDev/CamDev.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/module.cmake>`__.
+`ASW/CamHmi/CamHmi.h <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/ASW/CamHmi/CamHmi.h>`__, `ASW/CamHmi/CamHmi.c <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/ASW/CamHmi/CamHmi.c>`__, `ASW/CamDiag/CamDiag.h <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/ASW/CamDiag/CamDiag.h>`__, `ASW/CamDiag/CamDiag.c <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/ASW/CamDiag/CamDiag.c>`__, `ASV/CamSupv/CamSupv.h <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/ASV/CamSupv/CamSupv.h>`__, `ASV/CamSupv/CamSupv.c <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/ASV/CamSupv/CamSupv.c>`__, `DE/CamDev/CamDev.h <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/DE/CamDev/CamDev.h>`__, `DE/CamDev/CamDev.c <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/DE/CamDev/CamDev.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------
@@ -111,11 +111,11 @@ CamApp implements the camera dashboard, photo/profile supervision, diagnostic me
    * - ``NEOCAM-SWS-CamApp-003``
      - Accept named preview presets and expose progress.
      - :ref:`ASV CamSupv profile and still capture <sws-camapp-supervisor>`
-     - `ASV/CamSupv/CamSupv.c <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/ASV/CamSupv/CamSupv.c>`__ and ``test/test_application.c``.
+     - `ASV/CamSupv/CamSupv.c <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/ASV/CamSupv/CamSupv.c>`__ and ``test/test_application.c``.
    * - ``NEOCAM-SWS-CamApp-004``
      - Forward camera access using the typed Rte surface.
      - :ref:`DE CamDev device access <sws-camapp-device>`
-     - `DE/CamDev/CamDev.c <https://github.com/NeoTech-vietnam/CamApp/blob/74ea4c09a6dd6a70146ea806e0a41822430f1f6c/DE/CamDev/CamDev.c>`__ and ``test/test_application.c``.
+     - `DE/CamDev/CamDev.c <https://github.com/NeoTech-vietnam/CamApp/blob/9d0e15bb06aa5c036d4d9e16c1d6f677ceb75883/DE/CamDev/CamDev.c>`__ and ``test/test_application.c``.
 
 7 Functional specification
 --------------------------

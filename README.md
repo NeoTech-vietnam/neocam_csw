@@ -7,8 +7,7 @@ Conan server. `packages.yml` is a Git workspace manifest, not a Conan recipe.
 
 ## Quick start
 
-Start with **Git**, **Python 3.12+**, and Git authentication for this private
-repository and its twelve source modules. Run the commands from `neocam_csw`.
+Start with **Git** and **Python 3.12+**. Run the commands from `neocam_csw`. The integration repository and its twelve source modules are public.
 ESP-IDF does not need to be installed beforehand.
 
 ### Ubuntu
@@ -163,7 +162,7 @@ and missing revisions still require correcting access or the selected ref.
 
 ## Documentation
 
-Browse the [documentation index](docs/index.rst) and the [12 software specifications](docs/specifications/index.rst).
+Browse the [published NeoCam documentation](https://neotech-vietnam.github.io/neocam_csw/) and the [module documentation catalog](https://neotech-vietnam.github.io/neocam_csw/specifications/index.html).
 With Python 3.12 or newer, run these commands from the integration root (use `python3` on Ubuntu if needed):
 
 ```text
@@ -176,8 +175,7 @@ Open `_build/docs/html/index.html`. See the [documentation contribution guide](d
 ## Publish and activate GitHub
 
 See [GitHub setup](docs/development/github-setup.rst). The container directory and `modules`
-directory are not repositories. All twelve module repositories are now published
-privately, with `origin` set in their independent local checkouts. Their existing
+directory are not repositories. All twelve module repositories are public, with `origin` set in their independent local checkouts. Their existing
 histories were preserved. This project is published as
 [`NeoTech-vietnam/neocam_csw`](https://github.com/NeoTech-vietnam/neocam_csw).
 
@@ -185,7 +183,7 @@ The small `.github/workflows/integration.yml` caller handles pushes to main, pul
 requests and manual dispatch. It uses the versioned ESP-IDF workflow in
 [`NeoTech-vietnam/ci-workflows`](https://github.com/NeoTech-vietnam/ci-workflows).
 Configure repository secret `PACKAGE_READ_TOKEN` with Contents: read access to
-the twelve private modules. Build results and artifacts belong to this project.
+the twelve module repositories. Build results and artifacts belong to this project.
 Build scripts and product configuration remain here; shared CI owns orchestration.
 
 For manual flashing of a successful main integration artifact, follow the

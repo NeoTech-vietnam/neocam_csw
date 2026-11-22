@@ -18,7 +18,7 @@ Specification of BswLib
    * - Selected ref
      - ``bswlib/1.0.0@neotech/prototype``
    * - Source commit
-     - `f45683cd978a9db2971d9629f7dae0945e8b29d2 <https://github.com/NeoTech-vietnam/BswLib/tree/f45683cd978a9db2971d9629f7dae0945e8b29d2>`__
+     - `bff049eb1af832e63b4f1f7f7cf182f3b4943cbc <https://github.com/NeoTech-vietnam/BswLib/tree/bff049eb1af832e63b4f1f7f7cf182f3b4943cbc>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -85,7 +85,7 @@ BswLib supplies MediaBuf, a bounded, reference-counted JPEG buffer pool shared b
 
 **Source files**
 
-`MediaBuf/MediaBuf.h <https://github.com/NeoTech-vietnam/BswLib/blob/f45683cd978a9db2971d9629f7dae0945e8b29d2/MediaBuf/MediaBuf.h>`__, `MediaBuf/MediaBuf.c <https://github.com/NeoTech-vietnam/BswLib/blob/f45683cd978a9db2971d9629f7dae0945e8b29d2/MediaBuf/MediaBuf.c>`__, `MediaBuf/MediaBuf_Backend.h <https://github.com/NeoTech-vietnam/BswLib/blob/f45683cd978a9db2971d9629f7dae0945e8b29d2/MediaBuf/MediaBuf_Backend.h>`__, `MediaBuf/MediaBuf_EspIdf.c <https://github.com/NeoTech-vietnam/BswLib/blob/f45683cd978a9db2971d9629f7dae0945e8b29d2/MediaBuf/MediaBuf_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/BswLib/blob/f45683cd978a9db2971d9629f7dae0945e8b29d2/module.cmake>`__.
+`MediaBuf/MediaBuf.h <https://github.com/NeoTech-vietnam/BswLib/blob/bff049eb1af832e63b4f1f7f7cf182f3b4943cbc/MediaBuf/MediaBuf.h>`__, `MediaBuf/MediaBuf.c <https://github.com/NeoTech-vietnam/BswLib/blob/bff049eb1af832e63b4f1f7f7cf182f3b4943cbc/MediaBuf/MediaBuf.c>`__, `MediaBuf/MediaBuf_Backend.h <https://github.com/NeoTech-vietnam/BswLib/blob/bff049eb1af832e63b4f1f7f7cf182f3b4943cbc/MediaBuf/MediaBuf_Backend.h>`__, `MediaBuf/MediaBuf_EspIdf.c <https://github.com/NeoTech-vietnam/BswLib/blob/bff049eb1af832e63b4f1f7f7cf182f3b4943cbc/MediaBuf/MediaBuf_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/BswLib/blob/bff049eb1af832e63b4f1f7f7cf182f3b4943cbc/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------

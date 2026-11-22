@@ -18,7 +18,7 @@ Specification of NeoContracts
    * - Selected ref
      - ``neocontracts/1.0.0@neotech/prototype``
    * - Source commit
-     - `67ee984d6bc1dbfe123ca7f8a4546d91d1d85ca6 <https://github.com/NeoTech-vietnam/NeoContracts/tree/67ee984d6bc1dbfe123ca7f8a4546d91d1d85ca6>`__
+     - `79de8ffd201dbb3a8f2295b8545e96e85deaa7d2 <https://github.com/NeoTech-vietnam/NeoContracts/tree/79de8ffd201dbb3a8f2295b8545e96e85deaa7d2>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -83,7 +83,7 @@ NeoContracts owns the project-level types and typed port tables shared between N
 
 **Source files**
 
-`Neo_Types.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/67ee984d6bc1dbfe123ca7f8a4546d91d1d85ca6/Neo_Types.h>`__, `Neo_CameraTypes.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/67ee984d6bc1dbfe123ca7f8a4546d91d1d85ca6/Neo_CameraTypes.h>`__, `Neo_HttpTypes.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/67ee984d6bc1dbfe123ca7f8a4546d91d1d85ca6/Neo_HttpTypes.h>`__, `module.cmake <https://github.com/NeoTech-vietnam/NeoContracts/blob/67ee984d6bc1dbfe123ca7f8a4546d91d1d85ca6/module.cmake>`__.
+`Neo_Types.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/79de8ffd201dbb3a8f2295b8545e96e85deaa7d2/Neo_Types.h>`__, `Neo_CameraTypes.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/79de8ffd201dbb3a8f2295b8545e96e85deaa7d2/Neo_CameraTypes.h>`__, `Neo_HttpTypes.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/79de8ffd201dbb3a8f2295b8545e96e85deaa7d2/Neo_HttpTypes.h>`__, `module.cmake <https://github.com/NeoTech-vietnam/NeoContracts/blob/79de8ffd201dbb3a8f2295b8545e96e85deaa7d2/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------
@@ -98,7 +98,7 @@ NeoContracts owns the project-level types and typed port tables shared between N
    * - ``NEOCAM-SWS-NeoContracts-001``
      - Carry frame payload metadata and a release token through module boundaries.
      - :ref:`Shared frame and lease contract <sws-neocontracts-frame>`
-     - `Neo_Types.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/67ee984d6bc1dbfe123ca7f8a4546d91d1d85ca6/Neo_Types.h>`__, `Neo_HttpTypes.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/67ee984d6bc1dbfe123ca7f8a4546d91d1d85ca6/Neo_HttpTypes.h>`__ and the ``camera_buffers`` and ``application`` host cases.
+     - `Neo_Types.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/79de8ffd201dbb3a8f2295b8545e96e85deaa7d2/Neo_Types.h>`__, `Neo_HttpTypes.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/79de8ffd201dbb3a8f2295b8545e96e85deaa7d2/Neo_HttpTypes.h>`__ and the ``camera_buffers`` and ``application`` host cases.
    * - ``NEOCAM-SWS-NeoContracts-002``
      - Expose a common immutable view of presets.
      - :ref:`Product profile lookup <sws-neocontracts-profiles>`
@@ -267,7 +267,7 @@ Camera and HTTP types
    * - Representation / range
      - State, requested/active profile, epoch, frame counters, timing, JPEG sizes, free memory, task stack, build/network settings and last errors.
    * - Description
-     - For the full field inventory see `Neo_CameraTypes.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/67ee984d6bc1dbfe123ca7f8a4546d91d1d85ca6/Neo_CameraTypes.h>`__. Cadence is represented by ``capture_fps_x100`` and durations with a ``_us`` suffix are in microseconds.
+     - For the full field inventory see `Neo_CameraTypes.h <https://github.com/NeoTech-vietnam/NeoContracts/blob/79de8ffd201dbb3a8f2295b8545e96e85deaa7d2/Neo_CameraTypes.h>`__. Cadence is represented by ``capture_fps_x100`` and durations with a ``_us`` suffix are in microseconds.
    * - Available via
      - ``Neo_CameraTypes.h``
 

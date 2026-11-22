@@ -67,7 +67,7 @@ One-time credential setup for WifiStack
 ---------------------------------------
 
 The module's automatic ``GITHUB_TOKEN`` can read its own repository, but cannot
-dispatch into another private repository. Do not reuse the package-read token,
+dispatch into another repository. Do not reuse the package-read token,
 and do not upload your broad desktop GitHub CLI credential.
 
 1. Open `GitHub fine-grained tokens <https://github.com/settings/personal-access-tokens/new>`__.
@@ -89,12 +89,12 @@ Alternatively, set it from your authenticated terminal using the hidden prompt:
    gh secret set INTEGRATION_DISPATCH_TOKEN --repo NeoTech-vietnam/WifiStack
 
 No additional token is needed in neocam_csw: it continues using its existing
-``PACKAGE_READ_TOKEN`` to fetch the private modules. A missing dispatch secret
+``PACKAGE_READ_TOKEN`` to fetch the module repositories. A missing dispatch secret
 fails the module job with setup instructions. After saving it, rerun the failed
 WifiStack job or manually run its workflow on ``feat/wifistack``.
 
 For a larger deployment, a GitHub App can supply short-lived installation tokens
-instead of a personal token. Private repository secrets are the initial setup;
+instead of a personal token. Repository secrets are the initial setup;
 organization-level secret availability depends on the GitHub plan.
 
 Develop and inspect

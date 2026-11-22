@@ -18,7 +18,7 @@ Specification of CamIo
    * - Selected ref
      - ``camio/1.0.0@neotech/prototype``
    * - Source commit
-     - `f5a0fe94e0121bfb6da52a1aee6b888209bde625 <https://github.com/NeoTech-vietnam/CamIo/tree/f5a0fe94e0121bfb6da52a1aee6b888209bde625>`__
+     - `8d62a4fec49fbb1132e1ce085a205f6534307658 <https://github.com/NeoTech-vietnam/CamIo/tree/8d62a4fec49fbb1132e1ce085a205f6534307658>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -89,7 +89,7 @@ CamIo owns the native camera adapter. It validates product wiring and profile pa
 
 **Source files**
 
-`CamIo.h <https://github.com/NeoTech-vietnam/CamIo/blob/f5a0fe94e0121bfb6da52a1aee6b888209bde625/CamIo.h>`__, `CamIo_ConfigTypes.h <https://github.com/NeoTech-vietnam/CamIo/blob/f5a0fe94e0121bfb6da52a1aee6b888209bde625/CamIo_ConfigTypes.h>`__, `CamIo.c <https://github.com/NeoTech-vietnam/CamIo/blob/f5a0fe94e0121bfb6da52a1aee6b888209bde625/CamIo.c>`__, `CamIo_Backend.h <https://github.com/NeoTech-vietnam/CamIo/blob/f5a0fe94e0121bfb6da52a1aee6b888209bde625/CamIo_Backend.h>`__, `CamIo_EspIdf.c <https://github.com/NeoTech-vietnam/CamIo/blob/f5a0fe94e0121bfb6da52a1aee6b888209bde625/CamIo_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/CamIo/blob/f5a0fe94e0121bfb6da52a1aee6b888209bde625/module.cmake>`__.
+`CamIo.h <https://github.com/NeoTech-vietnam/CamIo/blob/8d62a4fec49fbb1132e1ce085a205f6534307658/CamIo.h>`__, `CamIo_ConfigTypes.h <https://github.com/NeoTech-vietnam/CamIo/blob/8d62a4fec49fbb1132e1ce085a205f6534307658/CamIo_ConfigTypes.h>`__, `CamIo.c <https://github.com/NeoTech-vietnam/CamIo/blob/8d62a4fec49fbb1132e1ce085a205f6534307658/CamIo.c>`__, `CamIo_Backend.h <https://github.com/NeoTech-vietnam/CamIo/blob/8d62a4fec49fbb1132e1ce085a205f6534307658/CamIo_Backend.h>`__, `CamIo_EspIdf.c <https://github.com/NeoTech-vietnam/CamIo/blob/8d62a4fec49fbb1132e1ce085a205f6534307658/CamIo_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/CamIo/blob/8d62a4fec49fbb1132e1ce085a205f6534307658/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------

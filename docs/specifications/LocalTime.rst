@@ -18,7 +18,7 @@ Specification of LocalTime
    * - Selected ref
      - ``localtime/1.0.0@neotech/prototype``
    * - Source commit
-     - `8c5b110b6c89bbbec8de0993a0db6e34e0ccb1be <https://github.com/NeoTech-vietnam/LocalTime/tree/8c5b110b6c89bbbec8de0993a0db6e34e0ccb1be>`__
+     - `3439e60e19a3e3c02d47d861454ef61b8633c422 <https://github.com/NeoTech-vietnam/LocalTime/tree/3439e60e19a3e3c02d47d861454ef61b8633c422>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -79,7 +79,7 @@ LocalTime exposes a monotonic elapsed-time reading for captures, worker deadline
 
 **Source files**
 
-`LocalTime.h <https://github.com/NeoTech-vietnam/LocalTime/blob/8c5b110b6c89bbbec8de0993a0db6e34e0ccb1be/LocalTime.h>`__, `LocalTime_EspIdf.c <https://github.com/NeoTech-vietnam/LocalTime/blob/8c5b110b6c89bbbec8de0993a0db6e34e0ccb1be/LocalTime_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/LocalTime/blob/8c5b110b6c89bbbec8de0993a0db6e34e0ccb1be/module.cmake>`__.
+`LocalTime.h <https://github.com/NeoTech-vietnam/LocalTime/blob/3439e60e19a3e3c02d47d861454ef61b8633c422/LocalTime.h>`__, `LocalTime_EspIdf.c <https://github.com/NeoTech-vietnam/LocalTime/blob/3439e60e19a3e3c02d47d861454ef61b8633c422/LocalTime_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/LocalTime/blob/3439e60e19a3e3c02d47d861454ef61b8633c422/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------
@@ -94,7 +94,7 @@ LocalTime exposes a monotonic elapsed-time reading for captures, worker deadline
    * - ``NEOCAM-SWS-LocalTime-001``
      - Return the backend elapsed timer value in microseconds.
      - :ref:`Elapsed-time read <sws-localtime-timebase>`
-     - `LocalTime_EspIdf.c <https://github.com/NeoTech-vietnam/LocalTime/blob/8c5b110b6c89bbbec8de0993a0db6e34e0ccb1be/LocalTime_EspIdf.c>`__. Host integrations substitute a test clock.
+     - `LocalTime_EspIdf.c <https://github.com/NeoTech-vietnam/LocalTime/blob/3439e60e19a3e3c02d47d861454ef61b8633c422/LocalTime_EspIdf.c>`__. Host integrations substitute a test clock.
 
 7 Functional specification
 --------------------------

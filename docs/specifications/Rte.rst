@@ -18,7 +18,7 @@ Specification of Rte
    * - Selected ref
      - ``rte/1.0.0@neotech/prototype``
    * - Source commit
-     - `3cf108c30ee6cfe30158601787333abb51fea2d8 <https://github.com/NeoTech-vietnam/Rte/tree/3cf108c30ee6cfe30158601787333abb51fea2d8>`__
+     - `f535640c1cf1e598fd610c8068a54c25cd2b42c6 <https://github.com/NeoTech-vietnam/Rte/tree/f535640c1cf1e598fd610c8068a54c25cd2b42c6>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -88,7 +88,7 @@ Rte is the hand-written runtime wiring for NeoCam. It connects HTTP, application
 
 **Source files**
 
-`Rte.h <https://github.com/NeoTech-vietnam/Rte/blob/3cf108c30ee6cfe30158601787333abb51fea2d8/Rte.h>`__, `Rte.c <https://github.com/NeoTech-vietnam/Rte/blob/3cf108c30ee6cfe30158601787333abb51fea2d8/Rte.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/Rte/blob/3cf108c30ee6cfe30158601787333abb51fea2d8/module.cmake>`__.
+`Rte.h <https://github.com/NeoTech-vietnam/Rte/blob/f535640c1cf1e598fd610c8068a54c25cd2b42c6/Rte.h>`__, `Rte.c <https://github.com/NeoTech-vietnam/Rte/blob/f535640c1cf1e598fd610c8068a54c25cd2b42c6/Rte.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/Rte/blob/f535640c1cf1e598fd610c8068a54c25cd2b42c6/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------
@@ -107,7 +107,7 @@ Rte is the hand-written runtime wiring for NeoCam. It connects HTTP, application
    * - ``NEOCAM-SWS-Rte-002``
      - Forward service status and serialize diagnostics through a dedicated lock.
      - :ref:`Provider forwarding and diagnostic access <sws-rte-forwarding>`
-     - ``application`` host case in ``test/test_application.c``. and `Rte.c <https://github.com/NeoTech-vietnam/Rte/blob/3cf108c30ee6cfe30158601787333abb51fea2d8/Rte.c>`__
+     - ``application`` host case in ``test/test_application.c``. and `Rte.c <https://github.com/NeoTech-vietnam/Rte/blob/f535640c1cf1e598fd610c8068a54c25cd2b42c6/Rte.c>`__
 
 7 Functional specification
 --------------------------

@@ -18,7 +18,7 @@ Specification of HttpSrv
    * - Selected ref
      - ``httpsrv/1.0.0@neotech/prototype``
    * - Source commit
-     - `42e4eb03096d2a8894149ceb7073e347280870b2 <https://github.com/NeoTech-vietnam/HttpSrv/tree/42e4eb03096d2a8894149ceb7073e347280870b2>`__
+     - `5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144 <https://github.com/NeoTech-vietnam/HttpSrv/tree/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -89,7 +89,7 @@ HttpSrv owns ESP-IDF HTTP transport for NeoCam. It attaches application callback
 
 **Source files**
 
-`HttpSrv.h <https://github.com/NeoTech-vietnam/HttpSrv/blob/42e4eb03096d2a8894149ceb7073e347280870b2/HttpSrv.h>`__, `HttpSrv_ConfigTypes.h <https://github.com/NeoTech-vietnam/HttpSrv/blob/42e4eb03096d2a8894149ceb7073e347280870b2/HttpSrv_ConfigTypes.h>`__, `HttpSrv.c <https://github.com/NeoTech-vietnam/HttpSrv/blob/42e4eb03096d2a8894149ceb7073e347280870b2/HttpSrv.c>`__, `HttpSrv_EspIdf.c <https://github.com/NeoTech-vietnam/HttpSrv/blob/42e4eb03096d2a8894149ceb7073e347280870b2/HttpSrv_EspIdf.c>`__, `HttpSrv_Internal.h <https://github.com/NeoTech-vietnam/HttpSrv/blob/42e4eb03096d2a8894149ceb7073e347280870b2/HttpSrv_Internal.h>`__, `HttpSrv_MemMap.h <https://github.com/NeoTech-vietnam/HttpSrv/blob/42e4eb03096d2a8894149ceb7073e347280870b2/HttpSrv_MemMap.h>`__, `module.cmake <https://github.com/NeoTech-vietnam/HttpSrv/blob/42e4eb03096d2a8894149ceb7073e347280870b2/module.cmake>`__.
+`HttpSrv.h <https://github.com/NeoTech-vietnam/HttpSrv/blob/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144/HttpSrv.h>`__, `HttpSrv_ConfigTypes.h <https://github.com/NeoTech-vietnam/HttpSrv/blob/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144/HttpSrv_ConfigTypes.h>`__, `HttpSrv.c <https://github.com/NeoTech-vietnam/HttpSrv/blob/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144/HttpSrv.c>`__, `HttpSrv_EspIdf.c <https://github.com/NeoTech-vietnam/HttpSrv/blob/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144/HttpSrv_EspIdf.c>`__, `HttpSrv_Internal.h <https://github.com/NeoTech-vietnam/HttpSrv/blob/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144/HttpSrv_Internal.h>`__, `HttpSrv_MemMap.h <https://github.com/NeoTech-vietnam/HttpSrv/blob/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144/HttpSrv_MemMap.h>`__, `module.cmake <https://github.com/NeoTech-vietnam/HttpSrv/blob/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------
@@ -104,15 +104,15 @@ HttpSrv owns ESP-IDF HTTP transport for NeoCam. It attaches application callback
    * - ``NEOCAM-SWS-HttpSrv-001``
      - Keep image transfer work off the synchronous server task.
      - :ref:`Route registration and separation <sws-httpsrv-routes>`
-     - `test/test_http_srv.c <https://github.com/NeoTech-vietnam/HttpSrv/blob/42e4eb03096d2a8894149ceb7073e347280870b2/test/test_http_srv.c>`__
+     - `test/test_http_srv.c <https://github.com/NeoTech-vietnam/HttpSrv/blob/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144/test/test_http_srv.c>`__
    * - ``NEOCAM-SWS-HttpSrv-002``
      - Release a borrowed frame and finish the async request on failure.
      - :ref:`Bounded send and lease cleanup <sws-httpsrv-leases>`
-     - `test/test_http_srv.c <https://github.com/NeoTech-vietnam/HttpSrv/blob/42e4eb03096d2a8894149ceb7073e347280870b2/test/test_http_srv.c>`__
+     - `test/test_http_srv.c <https://github.com/NeoTech-vietnam/HttpSrv/blob/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144/test/test_http_srv.c>`__
    * - ``NEOCAM-SWS-HttpSrv-003``
      - Keep the server live when asynchronous workers have not quiesced.
      - :ref:`Quiescent shutdown <sws-httpsrv-shutdown>`
-     - `test/test_http_srv.c <https://github.com/NeoTech-vietnam/HttpSrv/blob/42e4eb03096d2a8894149ceb7073e347280870b2/test/test_http_srv.c>`__
+     - `test/test_http_srv.c <https://github.com/NeoTech-vietnam/HttpSrv/blob/5d9ac85f3f06d28d01d9f1a64ffc3b30c0f18144/test/test_http_srv.c>`__
 
 7 Functional specification
 --------------------------

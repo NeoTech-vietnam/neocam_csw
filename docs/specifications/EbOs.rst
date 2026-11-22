@@ -18,7 +18,7 @@ Specification of EbOs
    * - Selected ref
      - ``ebos/1.0.0@neotech/prototype``
    * - Source commit
-     - `3b0efc83e949a98366492b2a6c3315daa05e5554 <https://github.com/NeoTech-vietnam/EbOs/tree/3b0efc83e949a98366492b2a6c3315daa05e5554>`__
+     - `2380cea17d6c9fd013b214a2625d555f6aa97c0c <https://github.com/NeoTech-vietnam/EbOs/tree/2380cea17d6c9fd013b214a2625d555f6aa97c0c>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -81,7 +81,7 @@ EbOs provides task delays and opaque, non-recursive mutexes backed by FreeRTOS.
 
 **Source files**
 
-`EbOs.h <https://github.com/NeoTech-vietnam/EbOs/blob/3b0efc83e949a98366492b2a6c3315daa05e5554/EbOs.h>`__, `EbOs_EspIdf.c <https://github.com/NeoTech-vietnam/EbOs/blob/3b0efc83e949a98366492b2a6c3315daa05e5554/EbOs_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/EbOs/blob/3b0efc83e949a98366492b2a6c3315daa05e5554/module.cmake>`__.
+`EbOs.h <https://github.com/NeoTech-vietnam/EbOs/blob/2380cea17d6c9fd013b214a2625d555f6aa97c0c/EbOs.h>`__, `EbOs_EspIdf.c <https://github.com/NeoTech-vietnam/EbOs/blob/2380cea17d6c9fd013b214a2625d555f6aa97c0c/EbOs_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/EbOs/blob/2380cea17d6c9fd013b214a2625d555f6aa97c0c/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------
@@ -96,7 +96,7 @@ EbOs provides task delays and opaque, non-recursive mutexes backed by FreeRTOS.
    * - ``NEOCAM-SWS-EbOs-001``
      - Provide bounded waits and an explicit indefinite mutex wait.
      - :ref:`Mutex and delay behavior <sws-ebos-mutex>`
-     - `EbOs_EspIdf.c <https://github.com/NeoTech-vietnam/EbOs/blob/3b0efc83e949a98366492b2a6c3315daa05e5554/EbOs_EspIdf.c>`__. Portable integration tests use a backend fake.
+     - `EbOs_EspIdf.c <https://github.com/NeoTech-vietnam/EbOs/blob/2380cea17d6c9fd013b214a2625d555f6aa97c0c/EbOs_EspIdf.c>`__. Portable integration tests use a backend fake.
 
 7 Functional specification
 --------------------------

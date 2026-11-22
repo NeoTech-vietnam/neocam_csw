@@ -18,7 +18,7 @@ Specification of BootCtrl
    * - Selected ref
      - ``bootctrl/1.0.0@neotech/prototype``
    * - Source commit
-     - `3d55b742a1796dcd86b3bd984b342fb308ec0bb1 <https://github.com/NeoTech-vietnam/BootCtrl/tree/3d55b742a1796dcd86b3bd984b342fb308ec0bb1>`__
+     - `e5f17adbe77c41d6d17f8635706679d39162a507 <https://github.com/NeoTech-vietnam/BootCtrl/tree/e5f17adbe77c41d6d17f8635706679d39162a507>`__
 
 .. list-table:: Document change history
    :header-rows: 1
@@ -82,7 +82,7 @@ BootCtrl runs the configured NeoCam startup steps and stops them in reverse orde
 
 **Source files**
 
-`BootCtrl.h <https://github.com/NeoTech-vietnam/BootCtrl/blob/3d55b742a1796dcd86b3bd984b342fb308ec0bb1/BootCtrl.h>`__, `BootCtrl.c <https://github.com/NeoTech-vietnam/BootCtrl/blob/3d55b742a1796dcd86b3bd984b342fb308ec0bb1/BootCtrl.c>`__, `BootCtrl_EspIdf.c <https://github.com/NeoTech-vietnam/BootCtrl/blob/3d55b742a1796dcd86b3bd984b342fb308ec0bb1/BootCtrl_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/BootCtrl/blob/3d55b742a1796dcd86b3bd984b342fb308ec0bb1/module.cmake>`__.
+`BootCtrl.h <https://github.com/NeoTech-vietnam/BootCtrl/blob/e5f17adbe77c41d6d17f8635706679d39162a507/BootCtrl.h>`__, `BootCtrl.c <https://github.com/NeoTech-vietnam/BootCtrl/blob/e5f17adbe77c41d6d17f8635706679d39162a507/BootCtrl.c>`__, `BootCtrl_EspIdf.c <https://github.com/NeoTech-vietnam/BootCtrl/blob/e5f17adbe77c41d6d17f8635706679d39162a507/BootCtrl_EspIdf.c>`__, `module.cmake <https://github.com/NeoTech-vietnam/BootCtrl/blob/e5f17adbe77c41d6d17f8635706679d39162a507/module.cmake>`__.
 
 6 Requirements traceability
 ---------------------------
@@ -97,11 +97,11 @@ BootCtrl runs the configured NeoCam startup steps and stops them in reverse orde
    * - ``NEOCAM-SWS-BootCtrl-001``
      - Start steps in order and retain ownership when cleanup fails.
      - :ref:`Startup and reverse cleanup <sws-bootctrl-order>`
-     - `test/test_boot_ctrl.c <https://github.com/NeoTech-vietnam/BootCtrl/blob/3d55b742a1796dcd86b3bd984b342fb308ec0bb1/test/test_boot_ctrl.c>`__
+     - `test/test_boot_ctrl.c <https://github.com/NeoTech-vietnam/BootCtrl/blob/e5f17adbe77c41d6d17f8635706679d39162a507/test/test_boot_ctrl.c>`__
    * - ``NEOCAM-SWS-BootCtrl-002``
      - Initialize NVS and preserve storage on errors.
      - :ref:`NVS lifecycle <sws-bootctrl-nvs>`
-     - `test/test_nvs.c <https://github.com/NeoTech-vietnam/BootCtrl/blob/3d55b742a1796dcd86b3bd984b342fb308ec0bb1/test/test_nvs.c>`__
+     - `test/test_nvs.c <https://github.com/NeoTech-vietnam/BootCtrl/blob/e5f17adbe77c41d6d17f8635706679d39162a507/test/test_nvs.c>`__
 
 7 Functional specification
 --------------------------
