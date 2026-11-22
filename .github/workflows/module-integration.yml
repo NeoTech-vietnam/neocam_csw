@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   integration:
-    uses: NeoTech-vietnam/ci-workflows/.github/workflows/esp-idf.yml@v1.3.0
+    uses: NeoTech-vietnam/ci-workflows/.github/workflows/esp-idf.yml@v1.3.1
     with:
       idf-version: v6.0.1
       target: esp32s3

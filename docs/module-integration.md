@@ -33,11 +33,11 @@ rewritten. No prototype tag is required for every development push.
 
 The module's `.github/workflows/integration.yml` triggers on pushes to branches
 other than `main`/`master`, or a manual dispatch on a development branch. It calls
-`ci-workflows/.github/workflows/module-integration.yml@v1.3.0`. The shared action
+`ci-workflows/.github/workflows/module-integration.yml@v1.3.1`. The shared action
 validates targets, dispatches the fixed `module-integration.yml` receiver, then
 waits for the actual results. Sending the request alone is not a passing check.
 
-The receiver calls `esp-idf.yml@v1.3.0` in module mode. Normal baseline integration
+The receiver calls `esp-idf.yml@v1.3.1` in module mode. Normal baseline integration
 and the separate manual flash/monitor workflows keep their existing selections.
 Feature artifacts are not eligible for the main-only flash workflow.
 
