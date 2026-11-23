@@ -1,13 +1,13 @@
 Module pushes trigger reference-project CI
 ==========================================
 
-WifiStack is the first enabled module configuration. Other modules can adopt the
-same small caller and YAML after this pilot is accepted. Reference integration
+WifiStack and CUCEL have enabled module configurations. Other modules can adopt
+the same small caller and YAML. Reference integration
 uses GitHub-hosted Ubuntu; it does not invoke the USB flashing runner.
 
 .. code:: text
 
-   WifiStack: push development commit
+   WifiStack: push a commit on any branch, including main/master
      -> read ci_targets.yml
      -> validate every reference project before dispatch
      -> neocam_csw / feat/wifistack / module-integration.yml
@@ -33,9 +33,10 @@ replaces only WifiStack's selected version with the full pushed commit SHA using
 ``workspace.py fetch --ref WifiStack=<SHA>``; neither manifest nor release tags are
 rewritten. No prototype tag is required for every development push.
 
-The module's ``.github/workflows/integration.yml`` triggers on pushes to branches
-other than ``main``/``master``, or a manual dispatch on a development branch. It calls
-``ci-workflows/.github/workflows/module-integration.yml@v1.3.1``. The shared action
+The module's ``.github/workflows/integration.yml`` triggers on pushes to any branch,
+including ``main``/``master``, or a manual dispatch on a source branch. Tag pushes
+are excluded and manual dispatches from tags are rejected. It calls
+``ci-workflows/.github/workflows/module-integration.yml@v1.3.2``. The shared action
 validates targets, dispatches the fixed ``module-integration.yml`` receiver, then
 waits for the actual results. Sending the request alone is not a passing check.
 
