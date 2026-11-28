@@ -116,6 +116,12 @@ def main():
     includes = ["-I" + str(ROOT / folder) for folder in INCLUDES]
     architecture_checks(cc, flags, includes)
     completed = []
+    subprocess.run([cc, *flags, *includes, "-fsyntax-only",
+                    str(ROOT / "EbOs/test/test_os_contracts.c")], check=True)
+    subprocess.run([sys.executable, str(ROOT / "EbOs/test/test_traceability.py"),
+                    "--integration", str(ROOT)], check=True)
+    print("PASS R26-11 contracts and requirement traces", flush=True)
+    completed.extend(("os_contracts", "os_traceability"))
     for name, sources in CASES.items():
         if args.case and args.case != name:
             continue

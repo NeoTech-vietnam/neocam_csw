@@ -85,20 +85,44 @@ handle both while running and after return. After completion EbOs takes the
 lower of the entry-return snapshot and current native minimum so that the
 suspension path's stack use is included. The native task stays alive until join.
 
-AUTOSAR adaptation profile
---------------------------
+R26-11 contracts and native adaptation
+--------------------------------------
 
-The selected specification is `AUTOSAR Classic R25-11 OS, Document 34
-<https://www.autosar.org/fileadmin/standards/R25-11/CP/AUTOSAR_CP_SWS_OS.pdf>`__.
+The selected references are `AUTOSAR Classic R26-11 OS requirements, Document 8
+<https://www.autosar.org/fileadmin/standards/R26-11/CP/AUTOSAR_CP_RS_OS.pdf>`__
+and `OS software specification, Document 34
+<https://www.autosar.org/fileadmin/standards/R26-11/CP/AUTOSAR_CP_SWS_OS.pdf>`__.
+The earlier native-task pilot used R25-11 as its architectural reference; the
+current contract and trace catalog use R26-11.
+
+The requirements document describes capabilities and rationale. The software
+specification refines them into detailed behavior and interfaces; it is not the
+implementation. For example, ``SRS_Os_00097`` is upstream of ``SWS_Os_00001``
+for OSEK API compatibility. Despite the ``RS_OS`` filename, requirement IDs keep
+the published ``SRS_Os_*`` spelling.
+
+EbOs now separately declares nine core task/lifecycle services in ``Os.h``:
+``ActivateTask``, ``TerminateTask``, ``ChainTask``, ``Schedule``, ``GetTaskID``,
+``GetTaskState``, ``StartOS``, ``ShutdownOS`` and ``GetActiveApplicationMode``.
+All are **specified, not implemented**. Their OSEK origins, contexts, errors,
+representation choices and trace status are in the module's
+`requirements and service catalog
+<https://neotech-vietnam.github.io/EbOs/requirements.html>`__.
+
+The declarations introduce no runtime stubs or aliases. NeoCam continues to
+use the implemented ``EbOs_*`` native adapter. In particular, native task creation
+is not task activation, and cooperative join/deletion is not self-termination.
+The standard interfaces are not callable runtime replacements in this stage.
+
 The module's `compatibility matrix
 <https://neotech-vietnam.github.io/EbOs/specification.html#sws-ebos-compatibility>`__
 records the supported subset and missing semantics.
 
 The current camera worker is a persistent, potentially blocking FreeRTOS
 thread, not an AUTOSAR basic task. Native mutex priority inheritance does not
-implement AUTOSAR resource priority ceiling (OS section 7.9.21). Typed task
-configuration adopts the separation of policy described by ``OsTask``
-(section 10.2.32), without asserting equivalent activation or scheduling rules.
+implement AUTOSAR resource priority ceiling. Typed task configuration adopts
+the separation of policy from mechanism without asserting equivalent activation
+or scheduling rules.
 
 ESP-IDF already starts FreeRTOS before ``app_main``. EbOs must not call
 ``vTaskStartScheduler`` / ``vTaskEndScheduler`` or present object initialization
@@ -107,12 +131,29 @@ as ``StartOS``. See the versioned `application entry-point documentation
 and `FreeRTOS task/affinity documentation
 <https://docs.espressif.com/projects/esp-idf/en/v6.0.1/esp32s3/api-reference/system/freertos_idf.html>`__.
 
-Later stages specify basic-task activation/termination, extended-task events,
-alarms/counters and HTTP worker migration separately. Resources, schedule
+Later stages implement the selected basic-task/lifecycle contracts and specify
+extended-task events, alarms/counters and HTTP worker migration separately.
+Resources, schedule
 tables, OS applications and memory/timing protection require a further
 compatibility feasibility assessment. Future native timer callbacks should
 only release work to tasks, as described in `ESP Timer 6.0.1
 <https://docs.espressif.com/projects/esp-idf/en/v6.0.1/esp32s3/api-reference/system/esp_timer.html>`__.
+
+NeoTech source format and traceability
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+EbOs production files and ``Conf/EbOs`` follow the existing NeoTech header/source
+templates and CUCEL-style Doxygen ``TRACE[...]`` comments. File administrative
+metadata, section banners and readable control blocks follow that convention.
+Standard declarations carry verified requirements context; implemented native
+functions use independent ``NEO_EBOS_*`` requirement IDs. Formatting a function
+does not establish standard semantics or change its implementation status.
+
+``NEO_EBOS_CFG_00001`` identifies the product's task policy and configuration
+ownership. ``NEO_EBOS_CFG_00002`` identifies the project camera entry/runnable
+wiring and actual-tick yield. The module's ``requirements/traceability.json``
+records these alongside interface and adapter requirements. It distinguishes
+project-specific obligations from AUTOSAR-issued requirements.
 
 Package selection and independent development
 ----------------------------------------------
@@ -154,6 +195,11 @@ From the integration repository, run ``.\neo.cmd check`` on Windows or
 ``make check`` on Ubuntu. The pilot adds backend/configuration coverage alongside
 the existing camera, buffer, HTTP and Wi-Fi regressions and the ESP-IDF firmware
 build. Strict Sphinx builds validate both documentation sets.
+
+Standard-contract checks compile ``Os.h`` and ``Os_Types.h`` independently and
+check the nine function signatures without calling or linking them. Source
+trace/catalog checks verify recorded requirement relationships and declaration
+status. These checks are not behavioral tests of the unimplemented OS services.
 
 Host tests and firmware compilation do not prove cross-core context switching
 or target timing. Hardware acceptance remains pending until an on-device run
