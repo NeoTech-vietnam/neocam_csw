@@ -40,8 +40,24 @@
       1,
       2
     ],
-    "windows_firmware": "passed; ESP-IDF6.0.1, firmware935584bytes",
+    "windows_firmware": {
+      "status": "passed",
+      "sdk": "6.0.1",
+      "camera_affinity_cases": [
+        -1,
+        1
+      ],
+      "app_bytes": 935584,
+      "method": "isolated assembly with pinned unchanged dependencies and the migration module sources"
+    },
     "documentation": "EbOs, CamPipe and integration strict Sphinx builds passed",
-    "ubuntu_firmware": "verified by feature-branch CI after publication"
+    "ubuntu_firmware": {
+      "status": "passed",
+      "integration_commit": "e727ec5a64dff7906300652beca9ef78589b4705",
+      "run": "https://github.com/NeoTech-vietnam/neocam_csw/actions/runs/46125099910",
+      "module_result": "https://github.com/NeoTech-vietnam/EbOs/actions/runs/46125053294",
+      "package_provenance": "uploaded resolved snapshots match both module_commits exactly"
+    },
+    "windows_target_fixture": "ESP32-S3 dedicated acceptance firmware compiled successfully; not flashed"
   }
 }
