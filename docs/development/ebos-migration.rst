@@ -23,7 +23,7 @@ are architectural references, not imported implementation or guarantees.
    * - EbOs repository
      - Portable interfaces, configuration types/validation, native task and
        synchronization mechanisms, lifecycle diagnostics and module tests.
-   * - ``Conf/EbOs``
+   * - ``Conf/EbOs/OsShell``
      - Concrete task stack/priority/affinity settings and entry-function wiring.
    * - CamPipe
      - Camera state machine, frame acquisition and cooperative stop request.
@@ -37,13 +37,43 @@ NeoCam configuration headers or reference camera/HTTP symbols. HTTP and Wi-Fi
 execution remain unchanged in this pilot. SDK-owned camera, Wi-Fi and network
 tasks remain SDK implementation details.
 
+Classified package layout
+-------------------------
+
+The earlier flat EbOs source files are grouped by the same responsibilities as
+MMD's OS, shell and platform packages. NeoTech uses its own group names and only
+creates groups with current content:
+
+.. code-block:: text
+
+   EbOs/
+      Os/Os.h
+      Os/Os_Types.h
+      OsShell/EbOs.h
+      Os_EspIdf/EbOs_EspIdf.c
+      module.cmake
+      docs/
+      requirements/
+      test/
+
+   Conf/EbOs/                  project-owned configuration
+      OsShell/EbOs_Cfg.h
+      OsShell/EbOs_Cfg.c
+
+``Os`` holds specified-only standard interfaces. ``OsShell`` exposes implemented
+NeoTech native helpers. ``Os_EspIdf`` provides their platform implementation.
+The root retains package infrastructure. No forwarding headers or unused MMD
+feature directories are introduced. Exported include directories preserve
+``#include "Os.h"`` and ``#include "EbOs.h"``; the folder move changes no runtime
+behavior or requirement identifier.
+
 Project configuration
 ---------------------
 
-``Conf/EbOs/EbOs_Cfg.h`` owns the camera worker's default stack size (8192 bytes)
+``Conf/EbOs/OsShell/EbOs_Cfg.h`` owns the camera worker's default stack size (8192 bytes)
 and priority (5). It retains the existing ``NEOCAM_PRODUCER_CORE`` override:
 ``-1`` is unpinned; ``0`` or ``1`` selects an available ESP32-S3 core.
-``Conf/EbOs/EbOs_Cfg.c`` supplies ``CamPipe_TaskConfig`` and the task entry that
+``Conf/EbOs/OsShell/EbOs_Cfg.c`` supplies ``CamPipe_TaskConfig`` and the task entry that
 repeatedly calls ``CamPipe_ProducerStep`` with an actual one-tick yield.
 
 CamPipe declares its required configuration through ``CamPipe_TaskConfig.h``.
@@ -101,7 +131,7 @@ implementation. For example, ``SRS_Os_00097`` is upstream of ``SWS_Os_00001``
 for OSEK API compatibility. Despite the ``RS_OS`` filename, requirement IDs keep
 the published ``SRS_Os_*`` spelling.
 
-EbOs now separately declares nine core task/lifecycle services in ``Os.h``:
+EbOs now separately declares nine core task/lifecycle services in ``Os/Os.h``:
 ``ActivateTask``, ``TerminateTask``, ``ChainTask``, ``Schedule``, ``GetTaskID``,
 ``GetTaskState``, ``StartOS``, ``ShutdownOS`` and ``GetActiveApplicationMode``.
 All are **specified, not implemented**. Their OSEK origins, contexts, errors,
@@ -142,7 +172,7 @@ only release work to tasks, as described in `ESP Timer 6.0.1
 NeoTech source format and traceability
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-EbOs production files and ``Conf/EbOs`` follow the existing NeoTech header/source
+EbOs production files and ``Conf/EbOs/OsShell`` follow the existing NeoTech header/source
 templates and CUCEL-style Doxygen ``TRACE[...]`` comments. File administrative
 metadata, section banners and readable control blocks follow that convention.
 Standard declarations carry verified requirements context; implemented native
@@ -196,7 +226,7 @@ From the integration repository, run ``.\neo.cmd check`` on Windows or
 the existing camera, buffer, HTTP and Wi-Fi regressions and the ESP-IDF firmware
 build. Strict Sphinx builds validate both documentation sets.
 
-Standard-contract checks compile ``Os.h`` and ``Os_Types.h`` independently and
+Standard-contract checks compile ``Os/Os.h`` and ``Os/Os_Types.h`` independently and
 check the nine function signatures without calling or linking them. Source
 trace/catalog checks verify recorded requirement relationships and declaration
 status. These checks are not behavioral tests of the unimplemented OS services.

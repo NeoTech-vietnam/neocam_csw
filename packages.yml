@@ -25,7 +25,7 @@ packages:
     dest: CUCEL
   EbOs:
     repo: https://github.com/NeoTech-vietnam/EbOs.git
-    ref: 796ba98e3fc060fef6077f22dfe27d3341a56bb3
+    ref: 0223d0d6bc9f519f2e7c1e07af2f17cd9b12c217
     dest: EbOs
   HttpSrv:
     repo: https://github.com/NeoTech-vietnam/HttpSrv.git

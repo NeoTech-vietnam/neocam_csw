@@ -8,7 +8,7 @@
 #define CAM_PIPE_WARMUP_TIMEOUT_MS 2000U
 #define CAM_PIPE_WARMUP_FRAMES 3U
 #define CAM_PIPE_TIMING_SAMPLES 64U
-/* Compatibility aliases for older CamPipe revisions; policy lives in Conf/EbOs. */
+/* Compatibility aliases for older CamPipe revisions; policy lives in Conf/EbOs/OsShell. */
 #define CAM_PIPE_WORKER_STACK_BYTES EBOS_CAMERA_STACK_BYTES
 #define CAM_PIPE_WORKER_PRIORITY EBOS_CAMERA_PRIORITY
 

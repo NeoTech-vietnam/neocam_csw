@@ -12,7 +12,7 @@ include("${PROJECT_DIR}/WifiStack/module.cmake")
 include("${PROJECT_DIR}/HttpSrv/module.cmake")
 idf_component_register(
     SRCS ${NEO_MODULE_SOURCES}
-        "${PROJECT_DIR}/Conf/EbOs/EbOs_Cfg.c"
+        "${PROJECT_DIR}/Conf/EbOs/OsShell/EbOs_Cfg.c"
         "${PROJECT_DIR}/Conf/CamIo/CamIo_Cfg.c"
         "${PROJECT_DIR}/Conf/WifiStack/WifiMgr_Cfg.c"
         "${PROJECT_DIR}/Conf/HttpSrv/HttpSrv_Cfg.c"
@@ -22,7 +22,7 @@ idf_component_register(
     "${PROJECT_DIR}/Conf/CUCEL"
     "${PROJECT_DIR}/Conf/CamIo"
     "${PROJECT_DIR}/Conf/CamPipe"
-    "${PROJECT_DIR}/Conf/EbOs"
+    "${PROJECT_DIR}/Conf/EbOs/OsShell"
     "${PROJECT_DIR}/Conf/BswLib"
     "${PROJECT_DIR}/Conf/WifiStack"
     "${PROJECT_DIR}/Conf/HttpSrv"
