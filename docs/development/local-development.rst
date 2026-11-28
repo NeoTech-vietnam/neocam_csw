@@ -93,6 +93,9 @@ or ``.\neo.cmd check``. Live source edits are visible immediately. The helper
 refetches only when source-selection files change or the assembly is missing;
 ``make fetch`` explicitly refreshes remote branch snapshots when desired.
 
+The firmware build checks CUCEL integer widths with the ESP32-S3 compiler.
+Host tests use a native compiler and do not enforce the ESP32-S3 integer layout.
+
 Commands
 --------
 

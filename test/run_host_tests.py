@@ -73,7 +73,6 @@ def architecture_checks(cc, flags, includes):
         subprocess.run([cc, *flags, *includes, "-fsyntax-only", str(source)], check=True)
     source = BUILD / "platform_check.c"
     source.write_text('''#include "Neo_Types.h"
-_Static_assert(sizeof(uint8)==1 && sizeof(uint16)==2 && sizeof(uint32)==4 && sizeof(uint64)==8, "integer widths");
 _Static_assert(sizeof(float32)==4 && sizeof(float64)==8, "float widths");
 _Static_assert(CPU_TYPE==CPU_TYPE_32 && CPU_BYTE_ORDER==LOW_BYTE_FIRST, "ESP32-S3 platform");
 int main(void) { return E_OK; }

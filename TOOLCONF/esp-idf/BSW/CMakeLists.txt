@@ -12,6 +12,7 @@ include("${PROJECT_DIR}/WifiStack/module.cmake")
 include("${PROJECT_DIR}/HttpSrv/module.cmake")
 idf_component_register(
     SRCS ${NEO_MODULE_SOURCES}
+        "platform_width_check.c"
         "${PROJECT_DIR}/Conf/CamIo/CamIo_Cfg.c"
         "${PROJECT_DIR}/Conf/WifiStack/WifiMgr_Cfg.c"
         "${PROJECT_DIR}/Conf/HttpSrv/HttpSrv_Cfg.c"
