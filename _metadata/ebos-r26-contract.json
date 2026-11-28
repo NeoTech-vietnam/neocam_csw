@@ -13,7 +13,13 @@
     "published_pdf_evidence": "release, SHA-256 and requirement pages verified locally",
     "documentation": "strict EbOs and integration Sphinx builds passed",
     "windows_firmware": "ESP-IDF6.0.1 build and memory checks passed; 935584-byte app",
-    "ubuntu_ci": "pending publication validation"
+    "ubuntu_ci": {
+      "status": "passed",
+      "integration_commit": "11993f93dbeb5047635ec9d005d57b8e6881c2db",
+      "run": "https://github.com/NeoTech-vietnam/neocam_csw/actions/runs/46128855206",
+      "module_result": "https://github.com/NeoTech-vietnam/EbOs/actions/runs/46128842310",
+      "provenance": "EbOs, CUCEL and CamPipe snapshot commits verified from uploaded packages-resolved.json"
+    }
   },
   "previous_pilot_record": "_metadata/ebos-pilot.json",
   "hardware_gate": "Prior native-task hardware acceptance remains separate and pending; this stage adds no runtime behavior"
