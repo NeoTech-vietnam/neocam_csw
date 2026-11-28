@@ -1,6 +1,13 @@
 EbOs configuration and camera-worker pilot
 ==========================================
 
+.. note::
+
+   This page describes the earlier native camera-worker milestone, recorded on
+   28 November 2026. Its declaration-only standard OS interface is superseded by
+   the limited configured-task implementation in :doc:`ebos-tasks`. The native
+   camera configuration and lifecycle described here remain separate and unchanged.
+
 This milestone separates reusable OS mechanisms from product scheduling policy.
 EbOs remains an independently maintained repository. NeoCam supplies typed C
 configuration and task-entry wiring; ESP-IDF 6.0.1 supplies the kernel.

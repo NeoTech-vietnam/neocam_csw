@@ -17,7 +17,7 @@ INCLUDES = [
     "CUCEL/MemMap", "BootCtrl",
     "BswLib/MediaBuf", "CamIo",
     "CamPipe",
-    "EbOs/Os", "EbOs/OsShell", "LocalTime", "Conf/EbOs/OsShell",
+    "EbOs/Os", "EbOs/OsShell", "LocalTime", "Conf/EbOs/OsShell", "Conf/EbOs/Os",
     "WifiStack/WifiMgr", "WifiStack/WifiIf",
     "HttpSrv", "Rte", "CamApp/ASW/CamHmi",
     "CamApp/ASW/CamDiag", "CamApp/DE/CamDev",
@@ -25,6 +25,7 @@ INCLUDES = [
     "Conf/CamIo", "Conf/CamPipe", "Conf/BswLib", "Conf/WifiStack", "Conf/HttpSrv",
 ]
 CASES = {
+    "os_tasks": ["EbOs/Os_EspIdf/Os_EspIdf.c", "Conf/EbOs/Os/Os_Cfg.c"],
     "ebos": ["EbOs/Os_EspIdf/EbOs_EspIdf.c", "EbOs/test/fixtures/second_project.c"],
     "boot_ctrl": ["BootCtrl/BootCtrl.c"],
     "nvs": ["BootCtrl/BootCtrl_EspIdf.c"],
@@ -44,7 +45,7 @@ CASES = {
 }
 TEST_OWNERS = {"boot_ctrl": "BootCtrl", "nvs": "BootCtrl", "wifi_config": "WifiStack",
                "wifi_manager": "WifiStack", "http_srv": "HttpSrv", "cam_pipe_backend": "CamPipe",
-               "ebos": "EbOs"}
+               "ebos": "EbOs", "os_tasks": "EbOs"}
 BSW_FOLDERS = ("CUCEL", "NeoContracts", "BootCtrl", "BswLib", "EbOs", "LocalTime",
                "CamIo", "CamPipe", "WifiStack", "HttpSrv")
 
@@ -54,7 +55,7 @@ def architecture_checks(cc, flags, includes):
     public = []
     for folder in (*BSW_FOLDERS, "CamApp", "Rte", "Conf"):
         for header in (ROOT / folder).rglob("*.h"):
-            if "test" in header.relative_to(ROOT / folder).parts:
+            if {"test", "_build", "_out", ".workspace", ".git"}.intersection(header.relative_to(ROOT / folder).parts):
                 continue
             if header.name.endswith(("_Backend.h", "_Internal.h", "MemMap.h")):
                 continue
@@ -63,7 +64,7 @@ def architecture_checks(cc, flags, includes):
             public.append(header)
     for folder in ("CamApp", *BSW_FOLDERS):
         for source in (ROOT / folder).rglob("*.[ch]"):
-            if "test" in source.relative_to(ROOT / folder).parts:
+            if {"test", "_build", "_out", ".workspace", ".git"}.intersection(source.relative_to(ROOT / folder).parts):
                 continue
             text = source.read_text()
             if folder == "CamApp":
@@ -129,9 +130,10 @@ def main():
         fake_includes = ["-I" + str(ROOT / "HttpSrv/test/fakes_http")] if name in ("http_srv", "nvs") else []
         if name == "nvs": fake_includes.insert(0, "-I" + str(ROOT / "BootCtrl/test/fakes_nvs"))
         if name == "cam_pipe_backend": fake_includes.insert(0, "-I" + str(ROOT / "CamPipe/test/fakes_cam_pipe"))
-        if name == "ebos": fake_includes.insert(0, "-I" + str(ROOT / "EbOs/test/fakes"))
+        if name in ("ebos", "os_tasks"): fake_includes.insert(0, "-I" + str(ROOT / "EbOs/test/fakes"))
         test_file = ROOT / TEST_OWNERS[name] / "test" / f"test_{name}.c" if name in TEST_OWNERS else ROOT / "test" / f"test_{name}.c"
-        command = [cc, *flags, *fake_includes, *includes,
+        case_flags = ["-DNEO_TEST_PROJECT_CONFIG"] if name == "os_tasks" else []
+        command = [cc, *flags, *case_flags, *fake_includes, *includes,
                    str(test_file), *[str(ROOT / p) for p in sources], "-o", str(binary)]
         subprocess.run(command, check=True)
         subprocess.run([str(binary)], check=True)

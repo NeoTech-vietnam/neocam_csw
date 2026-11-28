@@ -1,0 +1,31 @@
+{
+  "stage": "R26-11 configured basic-task runtime",
+  "module_commit": "a9a8c5528129bd7f8aa8920586732f41f1c4c6ef",
+  "task_services": [
+    "ActivateTask",
+    "TerminateTask",
+    "ChainTask",
+    "Schedule",
+    "GetTaskID",
+    "GetTaskState"
+  ],
+  "project_configuration": "Conf/EbOs/Os/Os_Cfg.c",
+  "profile": "Fully preemptive basic C tasks, distinct priorities, one pinned core, no automatic activation",
+  "native_camera_configuration": "Conf/EbOs/OsShell/EbOs_Cfg.c",
+  "standard_lifecycle_implemented": false,
+  "full_autosar_conformance_claim": false,
+  "verification": {
+    "module_host_1_and_2_core": "passed",
+    "integration_host_regressions": "passed",
+    "r26_pdf_digest_and_page_evidence": "passed",
+    "strict_module_and_project_sphinx": "passed",
+    "windows_esp_idf_6_0_1_firmware": "passed",
+    "esp32s3_acceptance_fixture_build": "passed",
+    "ubuntu_ci": "pending publication",
+    "physical_esp32s3": "pending; firmware build and host mocks do not establish scheduling or lifetime safety"
+  },
+  "hardware_required_markers": [
+    "PASS EBOS_CORE_TASK_SERVICES",
+    "PASS EBOS_DUAL_CORE_LIFECYCLE"
+  ]
+}

@@ -8,4 +8,5 @@ Development
    github-setup
    module-integration
    ebos-migration
+   ebos-tasks
    documentation

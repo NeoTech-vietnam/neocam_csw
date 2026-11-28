@@ -3,6 +3,14 @@
 Specification of EbOs
 =====================
 
+.. note::
+
+   This page preserves the historical ``ebos/1.0.0@neotech/prototype``
+   mutex/delay snapshot identified below. For the feature branch's configured
+   task implementation, read :doc:`../development/ebos-tasks` and the
+   `current independent EbOs specification <https://neotech-vietnam.github.io/EbOs/specification.html>`__.
+   The project's manifest and resolved commit report select the code actually used.
+
 .. list-table:: Document metadata
    :header-rows: 1
    :class: specification-fields
