@@ -7,4 +7,5 @@ Development
    local-development
    github-setup
    module-integration
+   ebos-migration
    documentation

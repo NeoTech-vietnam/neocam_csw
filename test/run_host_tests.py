@@ -17,7 +17,7 @@ INCLUDES = [
     "CUCEL/MemMap", "BootCtrl",
     "BswLib/MediaBuf", "CamIo",
     "CamPipe",
-    "EbOs", "LocalTime",
+    "EbOs", "LocalTime", "Conf/EbOs",
     "WifiStack/WifiMgr", "WifiStack/WifiIf",
     "HttpSrv", "Rte", "CamApp/ASW/CamHmi",
     "CamApp/ASW/CamDiag", "CamApp/DE/CamDev",
@@ -25,12 +25,14 @@ INCLUDES = [
     "Conf/CamIo", "Conf/CamPipe", "Conf/BswLib", "Conf/WifiStack", "Conf/HttpSrv",
 ]
 CASES = {
+    "ebos": ["EbOs/EbOs_EspIdf.c", "EbOs/test/fixtures/second_project.c"],
     "boot_ctrl": ["BootCtrl/BootCtrl.c"],
     "nvs": ["BootCtrl/BootCtrl_EspIdf.c"],
     "camera_buffers": ["CamIo/CamIo.c", "Conf/CamIo/CamIo_Cfg.c",
                        "BswLib/MediaBuf/MediaBuf.c", "GConf/CameraProfiles/Neo_Profiles.c"],
     "cam_pipe": ["CamPipe/CamPipe.c", "BswLib/MediaBuf/MediaBuf.c",
                  "GConf/CameraProfiles/Neo_Profiles.c"],
+    "cam_pipe_backend": ["CamPipe/CamPipe_EspIdf.c", "Conf/EbOs/EbOs_Cfg.c"],
     "wifi_config": ["WifiStack/WifiMgr/WifiMgr_Config.c",
                     "Conf/WifiStack/WifiMgr_Cfg.c"],
     "wifi_manager": ["WifiStack/WifiMgr/WifiMgr.c", "WifiStack/WifiMgr/WifiMgr_Config.c",
@@ -41,7 +43,8 @@ CASES = {
                     "CamApp/ASV/CamSupv/CamSupv.c", "GConf/CameraProfiles/Neo_Profiles.c"],
 }
 TEST_OWNERS = {"boot_ctrl": "BootCtrl", "nvs": "BootCtrl", "wifi_config": "WifiStack",
-               "wifi_manager": "WifiStack", "http_srv": "HttpSrv"}
+               "wifi_manager": "WifiStack", "http_srv": "HttpSrv", "cam_pipe_backend": "CamPipe",
+               "ebos": "EbOs"}
 BSW_FOLDERS = ("CUCEL", "NeoContracts", "BootCtrl", "BswLib", "EbOs", "LocalTime",
                "CamIo", "CamPipe", "WifiStack", "HttpSrv")
 
@@ -119,6 +122,8 @@ def main():
         binary = BUILD / (name + (".exe" if os.name == "nt" else ""))
         fake_includes = ["-I" + str(ROOT / "HttpSrv/test/fakes_http")] if name in ("http_srv", "nvs") else []
         if name == "nvs": fake_includes.insert(0, "-I" + str(ROOT / "BootCtrl/test/fakes_nvs"))
+        if name == "cam_pipe_backend": fake_includes.insert(0, "-I" + str(ROOT / "CamPipe/test/fakes_cam_pipe"))
+        if name == "ebos": fake_includes.insert(0, "-I" + str(ROOT / "EbOs/test/fakes"))
         test_file = ROOT / TEST_OWNERS[name] / "test" / f"test_{name}.c" if name in TEST_OWNERS else ROOT / "test" / f"test_{name}.c"
         command = [cc, *flags, *fake_includes, *includes,
                    str(test_file), *[str(ROOT / p) for p in sources], "-o", str(binary)]

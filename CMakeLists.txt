@@ -1,4 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
+if(CMAKE_HOST_WIN32)
+    # Deep workspaces can exceed CreateProcess's compiler command-line limit.
+    set(CMAKE_NINJA_FORCE_RESPONSE_FILE ON)
+endif()
 set(EXTRA_COMPONENT_DIRS "${CMAKE_CURRENT_LIST_DIR}/TOOLCONF/esp-idf/BSW"
                          "${CMAKE_CURRENT_LIST_DIR}/TOOLCONF/esp-idf/Rte"
                          "${CMAKE_CURRENT_LIST_DIR}/TOOLCONF/esp-idf/ApplicationLayer"
