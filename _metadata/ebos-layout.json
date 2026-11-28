@@ -1,0 +1,37 @@
+{
+  "change": "MMD-style EbOs functional subpackages",
+  "module_commit": "0223d0d6bc9f519f2e7c1e07af2f17cd9b12c217",
+  "groups": {
+    "Os": "Standard OS declarations and types",
+    "OsShell": "Reusable native-task and mutex interface",
+    "Os_EspIdf": "Private ESP-IDF implementation"
+  },
+  "module_moves": {
+    "Os.h": "Os/Os.h",
+    "Os_Types.h": "Os/Os_Types.h",
+    "EbOs.h": "OsShell/EbOs.h",
+    "EbOs_EspIdf.c": "Os_EspIdf/EbOs_EspIdf.c"
+  },
+  "project_moves": {
+    "Conf/EbOs/EbOs_Cfg.h": "Conf/EbOs/OsShell/EbOs_Cfg.h",
+    "Conf/EbOs/EbOs_Cfg.c": "Conf/EbOs/OsShell/EbOs_Cfg.c"
+  },
+  "public_includes": [
+    "EbOs/Os",
+    "EbOs/OsShell"
+  ],
+  "compatibility": "Basename includes, public APIs, trace IDs and moved production file contents are unchanged. No flat forwarding headers.",
+  "validation": {
+    "module_host": "one/two-core runtime tests and nine trace/layout tests passed",
+    "integration_host": "all regressions and 35 independent public headers passed",
+    "documentation": "strict module and integration Sphinx builds passed",
+    "windows_cmake": "ESP-IDF6.0.1 configure passed with grouped source and project configuration paths",
+    "ubuntu_ci": {
+      "status": "passed",
+      "integration_commit": "8aa965156126694081611b5f97074c3f0f861487",
+      "run": "https://github.com/NeoTech-vietnam/neocam_csw/actions/runs/46131038765",
+      "module_result": "https://github.com/NeoTech-vietnam/EbOs/actions/runs/46131024496"
+    },
+    "snapshot_fetch": "passed without local overrides; grouped EbOs commit 0223d0d6bc9f519f2e7c1e07af2f17cd9b12c217 verified"
+  }
+}

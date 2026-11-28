@@ -1,0 +1,41 @@
+{
+  "stage": "R26-11 configured basic-task runtime",
+  "module_commit": "a9a8c5528129bd7f8aa8920586732f41f1c4c6ef",
+  "task_services": [
+    "ActivateTask",
+    "TerminateTask",
+    "ChainTask",
+    "Schedule",
+    "GetTaskID",
+    "GetTaskState"
+  ],
+  "project_configuration": "Conf/EbOs/Os/Os_Cfg.c",
+  "profile": "Fully preemptive basic C tasks, distinct priorities, one pinned core, no automatic activation",
+  "native_camera_configuration": "Conf/EbOs/OsShell/EbOs_Cfg.c",
+  "standard_lifecycle_implemented": false,
+  "full_autosar_conformance_claim": false,
+  "verification": {
+    "module_host_1_and_2_core": "passed",
+    "integration_host_regressions": "passed",
+    "r26_pdf_digest_and_page_evidence": "passed",
+    "strict_module_and_project_sphinx": "passed",
+    "windows_esp_idf_6_0_1_firmware": "passed",
+    "esp32s3_acceptance_fixture_build": "passed",
+    "ubuntu_ci": "passed",
+    "physical_esp32s3": "pending; firmware build and host mocks do not establish scheduling or lifetime safety",
+    "target_elf_task_service_symbols": "all six linked"
+  },
+  "hardware_required_markers": [
+    "PASS EBOS_CORE_TASK_SERVICES",
+    "PASS EBOS_DUAL_CORE_LIFECYCLE"
+  ],
+  "ci": {
+    "integration_run_id": 46134115917,
+    "integration_url": "https://github.com/NeoTech-vietnam/neocam_csw/actions/runs/46134115917",
+    "integration_source_commit": "0d2d3d93dde223ee700e111225019731ebdb779d",
+    "module_sender_run_id": 46134088189,
+    "module_commit": "a9a8c5528129bd7f8aa8920586732f41f1c4c6ef",
+    "resolved_snapshot_shas_verified": true,
+    "firmware_and_test_artifacts_verified": true
+  }
+}

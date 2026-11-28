@@ -1,0 +1,26 @@
+{
+  "stage": "R26-11 core OS contract and NeoTech source format",
+  "standard_runtime_implemented": false,
+  "standard_services": "Nine task/lifecycle declarations, specified but not implemented",
+  "module_commit": "796ba98e3fc060fef6077f22dfe27d3341a56bb3",
+  "cucel_commit": "0bde70c9eb73ae203a52b590c6aaf3f93c4f850e",
+  "dependency_reason": "Reuse CUCEL StatusType/STATUSTYPEDEFINED; original prototype tag lacks that contract",
+  "catalog": "EbOs/requirements/traceability.json",
+  "runtime_change": "Formatting, comments and equivalent block braces only; all 11 function bodies compared",
+  "validation": {
+    "standalone_module": "declaration signatures, 7 trace checks, native tests with 1/2 core configurations passed",
+    "integration_host": "all regressions and 35 independent public headers passed in pinned validation assembly",
+    "published_pdf_evidence": "release, SHA-256 and requirement pages verified locally",
+    "documentation": "strict EbOs and integration Sphinx builds passed",
+    "windows_firmware": "ESP-IDF6.0.1 build and memory checks passed; 935584-byte app",
+    "ubuntu_ci": {
+      "status": "passed",
+      "integration_commit": "11993f93dbeb5047635ec9d005d57b8e6881c2db",
+      "run": "https://github.com/NeoTech-vietnam/neocam_csw/actions/runs/46128855206",
+      "module_result": "https://github.com/NeoTech-vietnam/EbOs/actions/runs/46128842310",
+      "provenance": "EbOs, CUCEL and CamPipe snapshot commits verified from uploaded packages-resolved.json"
+    }
+  },
+  "previous_pilot_record": "_metadata/ebos-pilot.json",
+  "hardware_gate": "Prior native-task hardware acceptance remains separate and pending; this stage adds no runtime behavior"
+}

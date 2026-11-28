@@ -1,0 +1,63 @@
+{
+  "milestone": "EbOs configured native tasks and camera-worker pilot",
+  "specification": "AUTOSAR Classic Platform R25-11 OS (adaptation profile, no conformity claim)",
+  "ownership": {
+    "EbOs": "Public types, validation, ESP-IDF task/mutex mechanisms and lifecycle tests",
+    "Conf/EbOs": "Project task policy and runnable entry wiring",
+    "CamPipe": "Camera operations and cooperative stop request",
+    "Conf/__CONFIG": "Unchanged startup/shutdown composition"
+  },
+  "migration": {
+    "CamPipe_EspIdf.c producer loop": "Conf/EbOs/EbOs_Cfg.c camera_producer",
+    "Conf/CamPipe worker stack, priority, affinity": "Conf/EbOs/EbOs_Cfg.h (legacy aliases retained)",
+    "Native task creation, completion and deletion": "EbOs managed task APIs"
+  },
+  "camera_defaults": {
+    "stack_bytes": 8192,
+    "priority": 5,
+    "core_affinity": -1,
+    "yield": "one actual scheduler tick"
+  },
+  "sdk": "6.0.1",
+  "unchanged_modules": [
+    "HttpSrv",
+    "WifiStack"
+  ],
+  "hardware_acceptance": {
+    "status": "pending",
+    "fixture": "EbOs/test/on_target",
+    "pass_marker": "PASS EBOS_DUAL_CORE_LIFECYCLE",
+    "also_required": "Normal NeoCam camera preview/photo and retryable stop on the board"
+  },
+  "baseline_policy": "packages.yml selects exact EbOs and CamPipe commits together on feat/ebos; no legacy tag is moved",
+  "module_commits": {
+    "EbOs": "64ce7c65ff49147a4810449469d8ec50c6ba24cb",
+    "CamPipe": "844ae6554c6199830445fc59a8a2fd90562cabfb"
+  },
+  "validation": {
+    "host_regressions": "passed in isolated pinned assembly",
+    "module_host_configurations": [
+      1,
+      2
+    ],
+    "windows_firmware": {
+      "status": "passed",
+      "sdk": "6.0.1",
+      "camera_affinity_cases": [
+        -1,
+        1
+      ],
+      "app_bytes": 935584,
+      "method": "isolated assembly with pinned unchanged dependencies and the migration module sources"
+    },
+    "documentation": "EbOs, CamPipe and integration strict Sphinx builds passed",
+    "ubuntu_firmware": {
+      "status": "passed",
+      "integration_commit": "e727ec5a64dff7906300652beca9ef78589b4705",
+      "run": "https://github.com/NeoTech-vietnam/neocam_csw/actions/runs/46125099910",
+      "module_result": "https://github.com/NeoTech-vietnam/EbOs/actions/runs/46125053294",
+      "package_provenance": "uploaded resolved snapshots match both module_commits exactly"
+    },
+    "windows_target_fixture": "ESP32-S3 dedicated acceptance firmware compiled successfully; not flashed"
+  }
+}

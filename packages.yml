@@ -17,15 +17,15 @@ packages:
     dest: CamIo
   CamPipe:
     repo: https://github.com/NeoTech-vietnam/CamPipe.git
-    ref: campipe/1.0.0@neotech/prototype
+    ref: 844ae6554c6199830445fc59a8a2fd90562cabfb
     dest: CamPipe
   CUCEL:
     repo: https://github.com/NeoTech-vietnam/CUCEL.git
-    ref: cucel/1.0.0@neotech/prototype
+    ref: 0bde70c9eb73ae203a52b590c6aaf3f93c4f850e
     dest: CUCEL
   EbOs:
     repo: https://github.com/NeoTech-vietnam/EbOs.git
-    ref: ebos/1.0.0@neotech/prototype
+    ref: a9a8c5528129bd7f8aa8920586732f41f1c4c6ef
     dest: EbOs
   HttpSrv:
     repo: https://github.com/NeoTech-vietnam/HttpSrv.git

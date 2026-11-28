@@ -33,8 +33,8 @@ Module registry and specification profile
 |                            | persistent generation     | and MemMap           |
 |                            | tokens                    |                      |
 +----------------------------+---------------------------+----------------------+
-| SysSrv/EbOs                | Opaque mutexes; task      | FreeRTOS adapter,    |
-|                            | delay                     | not an AUTOSAR OS    |
+| SysSrv/EbOs                | Opaque mutexes, configured| FreeRTOS adapter,    |
+|                            | tasks, join and delay     | not an AUTOSAR OS    |
 |                            |                           | implementation       |
 +----------------------------+---------------------------+----------------------+
 | SysSrv/LocalTime           | Monotonic microseconds    | NeoCam extension;    |
@@ -144,9 +144,11 @@ the pool/diagnostic mutexes. ISR code never calls these application interfaces.
 Configuration and memory
 ------------------------
 
-Module-local Cfg.h/Cfg.c own editable settings. Conf/\__CONFIG owns wiring; GLOBAL
-owns project contracts, CONFIG/MemMap_Conf owns section attributes, and TOOLCONF
-owns build checks. There are no ECUC values files or generator requirements.
+Project-owned Conf Cfg.h/Cfg.c files own editable settings. Conf/EbOs owns camera
+task policy and entry wiring; EbOs implements the task lifecycle using ESP-IDF.
+Conf/\__CONFIG owns startup composition; NeoContracts owns shared contracts,
+Conf/CUCEL owns section attributes, and TOOLCONF owns build checks.
+There are no ECUC values files or generator requirements.
 The SDK's sdkconfig.defaults owns only backend build parameters.
 
 Neo_StatusType carries project results: parameter/state/busy/memory/I/O/timeout/
